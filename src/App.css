@@ -1,38 +1,132 @@
-.App {
-  text-align: center;
+.wrapper {
+  display: grid;
+
+  height: 100vh;
+  width: 1440px;
+  grid-template-areas:
+    'A A'
+    'B C'
+    'B C';
+  grid-template-rows: 40px 1fr;
+  grid-template-columns: 200px 1fr;
+  gap: 3px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Heared styles */
+.mainHeader {
+  grid-area: A;
   display: flex;
-  flex-direction: column;
+}
+.headerName {
+  height: 100%;
+  width: 190px;
+  display: flex;
+  align-items: center;
+}
+.menuSelector {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+}
+.menuSelector svg {
+  fill: #28343a;
+}
+.appName {
+  font-size: 24px;
+  font-weight: 500;
+}
+.headerMenuBlock {
+  color: #28343a;
+  padding: 0 10px;
+  border: 0;
+  background: #fff;
+}
+
+/* Navigation Bar */
+.mainNav {
+  grid-area: B;
+  display: grid;
+  grid-template-rows: 3rem 3rem 25px 1fr;
+  row-gap: 8px;
+}
+.createNote {
+  color: #28343a;
+  height: 40px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background: #f4f5f6;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid #28343a;
+}
+.findNav {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: #f4f5f6;
+  border-radius: 15px;
+
+  padding-left: 20px;
+}
+.findNavInput {
+  font-family: 'DM Sans', sans-serif;
+  background: #f4f5f6;
+  font-weight: 700;
+  font-size: 14px;
+  width: 150px;
+  border: 0;
+  margin-left: 7px;
+}
+.findNavInput:focus {
+  outline: none;
+}
+.fiterNav {
+  height: 25px;
+  background: #f6f6f6;
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.filterIcon {
+  width: 15px;
+  height: 15px;
+}
+.filterIcon svg {
+  fill: #28343a;
+}
+.noteList {
+  background: #f4f5f6;
+  border-radius: 15px;
+
+  display: flex;
+  justify-content: center;
 }
 
-.App-link {
-  color: #61dafb;
+/* Content Styles */
+.mainContent {
+  background: rgb(201, 201, 152);
+  grid-area: C;
+  display: grid;
+  grid-template-rows: 3rem 1fr 2rem;
+  gap: 3px;
+}
+.noteHeader {
+  background-color: #28343a;
+}
+.noteContent {
+  background-color: #28343a;
+}
+.noteInfo {
+  background-color: #28343a;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Media */
+@media (max-width: 1440px) {
+  .wrapper {
+    width: 100vw;
   }
 }

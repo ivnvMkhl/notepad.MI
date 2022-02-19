@@ -1,17 +1,19 @@
-import logo from './logo.svg'
+import React from 'react'
 import './App.css'
+import Header from './components/Header'
+import Navigation from './components/Navigation'
+import Content from './components/Content'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
+    <div className="wrapper">
+      <Header />
+      <Navigation />
+      <Content />
     </div>
   )
 }
 
 export default App
+
+// appRef https://notepadonline.ru/app
