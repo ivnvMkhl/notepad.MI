@@ -46,12 +46,12 @@
 .mainNav {
   grid-area: B;
   display: grid;
-  grid-template-rows: 3rem 3rem 25px 1fr;
+  grid-template-rows: 3rem 3rem 2rem 1fr;
   row-gap: 8px;
 }
 .createNote {
   color: #28343a;
-  height: 40px;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,13 +62,12 @@
   border: 1px solid #28343a;
 }
 .findNav {
-  height: 40px;
+  height: 3rem;
   display: flex;
   align-items: center;
   background: #f4f5f6;
   border-radius: 15px;
-
-  padding-left: 20px;
+  padding-left: 15px;
 }
 .findNavInput {
   font-family: 'DM Sans', sans-serif;
@@ -77,16 +76,15 @@
   font-size: 14px;
   width: 150px;
   border: 0;
-  margin-left: 7px;
+  margin-left: 10px;
 }
 .findNavInput:focus {
   outline: none;
 }
 .fiterNav {
-  height: 25px;
+  height: 2rem;
   background: #f6f6f6;
   border-radius: 15px;
-
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -108,14 +106,13 @@
 
 /* Content Styles */
 .mainContent {
-  background: rgb(201, 201, 152);
   grid-area: C;
   display: grid;
   grid-template-rows: 3rem 1fr 2rem;
   gap: 3px;
 }
 .noteHeader {
-  background-color: #28343a;
+  font-size: 28px;
 }
 .noteContent {
   background-color: #28343a;
