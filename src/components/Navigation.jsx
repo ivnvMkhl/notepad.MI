@@ -1,6 +1,7 @@
 import React from 'react'
+import NoteNavItem from './NoteNavItem'
 
-const Navigation = () => {
+const Navigation = ({ notesList }, props) => {
   return (
     <nav className="mainNav">
       <input type="button" className="createNote" value="Create Note" />
@@ -10,7 +11,7 @@ const Navigation = () => {
             <path d="M20.18,18.61,15.07,13.5A8.11,8.11,0,0,0,2.87,2.87a8.11,8.11,0,0,0-.38,11.06,8.11,8.11,0,0,0,11,1.14l5.11,5.11h0a1.12,1.12,0,0,0,.78.32,1.14,1.14,0,0,0,.78-.32,1.11,1.11,0,0,0,0-1.57ZM2.81,8.66a5.85,5.85,0,1,1,10,4.1h-.06v0a5.84,5.84,0,0,1-8.24,0A5.85,5.85,0,0,1,2.81,8.66Z" />
           </svg>
         </div>
-        <input type="text" className="findNavInput" placeholder="find" />
+        <input type="text" maxLength="20" className="findNavInput" placeholder="find" />
       </div>
       <div className="fiterNav">
         <div className="filterIcon">
@@ -24,7 +25,11 @@ const Navigation = () => {
           </svg>
         </div>
       </div>
-      <div className="noteList">У вас пока нет заметок</div>
+      <div className="noteList">
+        {notesList.map((n, i) => (
+          <NoteNavItem noteHeader={n.noteHeader} noteContentCut={n.noteContent.slice(0, 40)} key={i} onClick={() => console.log('xyq')} />
+        ))}
+      </div>
     </nav>
   )
 }
