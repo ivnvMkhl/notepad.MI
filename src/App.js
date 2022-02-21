@@ -9,30 +9,30 @@ function App() {
     {
       noteId: 1,
       noteHeader: 'Note One',
-      noteContent: 'Description one more description one more description one more description one more description',
-      noteSelected: false,
+      noteContent: '1 Description one more description one more description one more description one more description',
     },
     {
       noteId: 2,
       noteHeader: 'Note Two',
-      noteContent: 'Description one more description one more description one more description one more description',
-      noteSelected: false,
+      noteContent: '2 Description one more description one more description one more description one more description',
     },
     {
       noteId: 3,
       noteHeader: 'Note Tree',
-      noteContent: 'Description one more description one more description one more description one more description',
-      noteSelected: false,
+      noteContent: '3 Description one more description one more description one more description one more description',
     },
   ])
 
   let [usedNote, setUsedNote] = useState({
-    usedNoteId: 1,
-    usedNoteHeader: 'usedH',
-    usedNoteContent: 'usedC',
+    noteId: 1,
+    noteHeader: 'start used Header',
+    noteContent: 'start used Content',
   })
 
-  const usedNoteSet = (usedFlagId) => {}
+  const usedNoteSet = (usedId) => {
+    setUsedNote(notesList[usedId - 1])
+    console.log(usedId - 1)
+  }
 
   return (
     <div className="wrapper">
