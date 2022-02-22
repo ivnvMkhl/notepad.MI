@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import NoteNavItem from './NoteNavItem'
 
-const Navigation = (props) => {
-  const selectNote = (usedId) => {
-    props.usedNoteSet(usedId)
-  }
-
+const Navigation = ({ notesList, getSelectNote }) => {
   return (
     <nav className="navigation">
       <input type="button" className="navigation__crate-button" value="Create Note" />
@@ -30,13 +26,14 @@ const Navigation = (props) => {
         </div>
       </div>
       <div className="navigation__note-list">
-        {props.notesList.map((n, i) => (
+        {notesList.map((n) => (
           <NoteNavItem
             noteHeader={n.noteHeader.slice(0, 20)}
             noteContentCut={n.noteContent.slice(0, 40)}
             noteId={n.noteId}
-            key={i}
-            selectNote={selectNote}
+            noteSelected={n.noteSelected}
+            key={n.noteId}
+            getSelectNote={getSelectNote}
           />
         ))}
       </div>

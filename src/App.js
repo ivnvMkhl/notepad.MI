@@ -10,16 +10,19 @@ function App() {
       noteId: 0,
       noteHeader: 'Note One',
       noteContent: '1 Description one more description one more description one more description one more description',
+      noteSelected: false,
     },
     {
       noteId: 1,
       noteHeader: 'Note Two',
       noteContent: '2 Description one more description one more description one more description one more description',
+      noteSelected: false,
     },
     {
       noteId: 2,
       noteHeader: 'Note Tree',
       noteContent: '3 Description one more description one more description one more description one more description',
+      noteSelected: false,
     },
   ])
 
@@ -29,15 +32,21 @@ function App() {
     noteContent: 'start used Content',
   })
 
-  const usedNoteSet = (usedId) => {
+  const getSelectNote = (usedId) => {
     setUsedNote(notesList[usedId])
-    console.log(usedId)
+
+    setNotesList(
+      notesList.map((notesList) => {
+        notesList.noteId === usedId ? (notesList.noteSelected = !notesList.noteSelected) : (notesList.noteSelected = false)
+        return notesList
+      })
+    )
   }
 
   return (
     <div className="wrapper">
       <Header />
-      <Navigation notesList={notesList} usedNoteSet={usedNoteSet} />
+      <Navigation notesList={notesList} getSelectNote={getSelectNote} setNotesList={setNotesList} />
       <Content usedNote={usedNote} />
     </div>
   )

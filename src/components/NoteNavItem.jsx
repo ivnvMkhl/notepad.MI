@@ -1,21 +1,21 @@
 import React from 'react'
 
-const NoteNavItem = (props) => {
+const NoteNavItem = ({ noteId, noteHeader, noteContentCut, noteSelected, getSelectNote }) => {
+  let classes = []
+
+  if (noteSelected) {
+    classes.push('note-item_select')
+  }
+
   return (
     <button
-      className="note-item"
+      className={`note-item ${classes.join(' ')}`}
       onClick={() => {
-        props.selectNote(props.noteId) //return ID selected note
-        // идет по всем note-item, меняет цвет фона у выбранного и отменяет у всех остальных
-        let i = 0
-        for (let elem of document.querySelectorAll('.note-item')) {
-          i === props.noteId ? (elem.className = 'note-item note-item_select') : (elem.className = 'note-item')
-          i++
-        }
+        getSelectNote(noteId)
       }}
     >
-      <div className="note-item_header">{props.noteHeader}</div>
-      <div className="note-item_cut-content">{props.noteContentCut}</div>
+      <div className="note-item_header">{noteHeader}</div>
+      <div className="note-item_cut-content">{noteContentCut}</div>
     </button>
   )
 }

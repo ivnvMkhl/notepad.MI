@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-const Content = (props) => {
+const Content = ({ usedNote }) => {
   let [areaLength, setAreaLength] = useState(0)
   let [headerInput, setHeaderInput] = useState('uldfh')
 
   return (
     <header className="content">
       <div className="content__note-header">
-        <input type="text" maxLength="150" className="content__header-input" placeholder="Note Header" value={headerInput} />
+        <input type="text" maxLength="150" className="content__header-input" placeholder="Note Header" value={usedNote.noteHeader} />
       </div>
       <div className="content__note-content">
         <textarea
@@ -16,7 +16,7 @@ const Content = (props) => {
           className="content__note-area"
           palaceholder="Note content ..."
           onChange={() => setAreaLength(document.querySelector('.content__note-area').textLength)}
-          //value={props.usedNote.noteContent}
+          value={usedNote.noteContent}
         />
         <div className="content__note-info">Symbols: {areaLength}, Size: , ServerSync: false</div>
       </div>
