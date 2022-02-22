@@ -5,15 +5,13 @@ const NoteNavItem = (props) => {
     <button
       className="note-item"
       onClick={() => {
-        props.usedNote(props.noteId)
-        let i = 1
+        props.selectNote(props.noteId) //return ID selected note
+        // идет по всем note-item, меняет цвет фона у выбранного и отменяет у всех остальных
+        let i = 0
         for (let elem of document.querySelectorAll('.note-item')) {
           i === props.noteId ? (elem.className = 'note-item note-item_select') : (elem.className = 'note-item')
           i++
         }
-        // if (document.querySelectorAll('.note-item')[props.noteId - 1].className === 'note-item') {
-        //   document.querySelectorAll('.note-item')[props.noteId - 1].className = 'note-item note-item_select'
-        // }
       }}
     >
       <div className="note-item_header">{props.noteHeader}</div>

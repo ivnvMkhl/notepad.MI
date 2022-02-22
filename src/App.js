@@ -7,17 +7,17 @@ import Content from './components/Content'
 function App() {
   let [notesList, setNotesList] = useState([
     {
-      noteId: 1,
+      noteId: 0,
       noteHeader: 'Note One',
       noteContent: '1 Description one more description one more description one more description one more description',
     },
     {
-      noteId: 2,
+      noteId: 1,
       noteHeader: 'Note Two',
       noteContent: '2 Description one more description one more description one more description one more description',
     },
     {
-      noteId: 3,
+      noteId: 2,
       noteHeader: 'Note Tree',
       noteContent: '3 Description one more description one more description one more description one more description',
     },
@@ -30,8 +30,8 @@ function App() {
   })
 
   const usedNoteSet = (usedId) => {
-    setUsedNote(notesList[usedId - 1])
-    console.log(usedId - 1)
+    setUsedNote(notesList[usedId])
+    console.log(usedId)
   }
 
   return (

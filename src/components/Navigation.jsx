@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import NoteNavItem from './NoteNavItem'
 
 const Navigation = (props) => {
-  const usedNote = (usedId) => {
+  const selectNote = (usedId) => {
     props.usedNoteSet(usedId)
   }
 
@@ -36,7 +36,7 @@ const Navigation = (props) => {
             noteContentCut={n.noteContent.slice(0, 40)}
             noteId={n.noteId}
             key={i}
-            usedNote={usedNote}
+            selectNote={selectNote}
           />
         ))}
       </div>
