@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import NoteNavItem from './NoteNavItem'
 
-const Navigation = ({ notesList, getSelectNote }) => {
+const Navigation = ({ usedId, notesList, getSelectNote, saveNote, closeNote, createNote }) => {
   return (
     <nav className="navigation">
-      <input type="button" className="navigation__crate-button" value="Create Note" />
+      <button
+        className="navigation__crate-button"
+        onClick={() => {
+          createNote(usedId, notesList)
+        }}
+      >
+        Create Note
+      </button>
       <div className="navigation__find-block">
         <div className="navigation__find-icon">
           <svg version="1.1" viewBox="0 0 21 21">
@@ -28,7 +35,7 @@ const Navigation = ({ notesList, getSelectNote }) => {
       <div className="navigation__note-list">
         {notesList.map((n) => (
           <NoteNavItem
-            noteHeader={n.noteHeader.slice(0, 20)}
+            noteHeader={n.noteHeader.slice(0, 15)}
             noteContentCut={n.noteContent.slice(0, 40)}
             noteId={n.noteId}
             noteSelected={n.noteSelected}
