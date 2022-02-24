@@ -1,13 +1,16 @@
 import React from 'react'
 import NoteNavItem from './NoteNavItem'
 
-const Navigation = ({ usedId, notesList, getSelectNote, saveNote, closeNote, createNote }) => {
+const Navigation = ({ usedNote, notesList, getSelectNote, createNote, saveNote, closeNote }) => {
   return (
     <nav className="navigation">
       <button
         className="navigation__crate-button"
         onClick={() => {
-          createNote(usedId, notesList)
+          if (usedNote !== -1) {
+            saveNote()
+            closeNote()
+          } else createNote()
         }}
       >
         Create Note
@@ -35,9 +38,10 @@ const Navigation = ({ usedId, notesList, getSelectNote, saveNote, closeNote, cre
       <div className="navigation__note-list">
         {notesList.map((n) => (
           <NoteNavItem
-            noteHeader={n.noteHeader.slice(0, 15)}
-            noteContentCut={n.noteContent.slice(0, 40)}
+            noteHeader={n.noteHeader.length > 14 ? `${n.noteHeader.slice(0, 11)}...` : n.noteHeader}
+            noteContentCut={n.noteContent.length > 25 ? `${n.noteContent.slice(0, 18)}...` : n.noteContent}
             noteId={n.noteId}
+            noteDate={n.noteDate}
             noteSelected={n.noteSelected}
             key={n.noteId}
             getSelectNote={getSelectNote}

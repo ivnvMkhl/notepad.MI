@@ -8,59 +8,55 @@ function App() {
   //main state of notes
   let [notesList, setNotesList] = useState([
     {
-      noteId: 0,
+      noteId: 1645721908699,
       noteHeader: 'Note One',
       noteContent: '1 Description one more description one more description one more description one more description',
+      noteDate: new Date(1645721908699),
       noteSelected: false,
     },
     {
-      noteId: 1,
+      noteId: 1645721908564,
       noteHeader: 'Note Two',
       noteContent: '2 Description one more description one more description one more description one more description',
+      noteDate: new Date(1645721908564),
       noteSelected: false,
     },
     {
-      noteId: 2,
+      noteId: 1645721908385,
       noteHeader: 'Note Tree',
       noteContent: '3 Description one more description one more description one more description one more description',
+      noteDate: new Date(1645721908385),
       noteSelected: false,
     },
   ])
 
   //state of the selected note
-  let [usedNote, setUsedNote] = useState({
-    noteId: -1,
-  })
-
+  let [usedNote, setUsedNote] = useState(-1)
+  let [usedHeader, setUsedHeader] = useState('')
+  let [usedContent, setUsedContent] = useState('')
+  //state area length
   let [areaLength, setAreaLength] = useState(0)
 
   //Works from clicking on the list of notes
-  const getSelectNote = (usedId) => {
+  const getSelectNote = (selectId) => {
     //Update the data in the state of the selected note
-    usedNote.noteId = usedId
-
+    setUsedNote(selectId)
     setNotesList(
       notesList.map((notesList) => {
-        if (notesList.noteId === usedId) {
+        if (notesList.noteId === selectId) {
           if (notesList.noteSelected === false) {
             //update the data on the content component if selected
-            document.querySelector('.content__header-input').value = notesList.noteHeader
-            document.querySelector('.content__note-area').value = notesList.noteContent
-
+            setUsedHeader(notesList.noteHeader)
+            setUsedContent(notesList.noteContent)
+            onSelectedBar()
             notesList.noteSelected = !notesList.noteSelected
-
-            document.querySelector('.content__header-input').className = 'content__header-input content__header-input_noteEdit'
-            document.querySelector('.selected-bar').style = 'display: flex'
           } else {
             //erase the data on the content component if unselected
-            document.querySelector('.content__header-input').value = ''
-            document.querySelector('.content__note-area').value = ''
-
+            setUsedHeader('')
+            setUsedContent('')
+            offSelectedBar()
             notesList.noteSelected = !notesList.noteSelected
-            usedNote.noteId = -1
-
-            document.querySelector('.content__header-input').className = 'content__header-input'
-            document.querySelector('.selected-bar').style = 'display: none'
+            usedNote = -1
           }
         } else {
           notesList.noteSelected = false
@@ -70,46 +66,55 @@ function App() {
     )
     setAreaLength(document.querySelector('.content__note-area').textLength)
   }
-
-  const closeNote = (usedId, notesList) => {
-    usedNote.noteId = -1
-    usedId = -1
-
-    document.querySelector('.content__header-input').value = ''
-    document.querySelector('.content__note-area').value = ''
-    document.querySelector('.content__header-input').className = 'content__header-input'
-    document.querySelector('.selected-bar').style = 'display: none'
+  const closeNote = () => {
+    setUsedNote(-1)
+    setUsedHeader('')
+    setUsedContent('')
+    offSelectedBar()
     notesList.map((note) => (note.noteSelected = false))
     setAreaLength(document.querySelector('.content__note-area').textLength)
   }
-
-  const saveNote = (usedId, notesList) => {
-    notesList[usedId].noteHeader = document.querySelector('.content__header-input').value
-    notesList[usedId].noteContent = document.querySelector('.content__note-area').value
+  const saveNote = () => {
+    notesList.map((note) => {
+      if (note.noteId === usedNote) {
+        note.noteHeader = usedHeader
+        note.noteContent = usedContent
+      }
+    })
     setAreaLength(document.querySelector('.content__note-area').textLength)
   }
+  const createNote = () => {
+    if (usedHeader.trim() !== '') {
+      let newId = Date.now()
+      setNotesList(
+        notesList.concat([
+          {
+            noteId: newId,
+            noteHeader: usedHeader,
+            noteContent: usedContent,
+            noteDate: new Date(newId),
+            noteSelected: true,
+          },
+        ])
+      )
 
-  const createNote = (usedId, notesList) => {
-    if (document.querySelector('.content__header-input').value.trim() !== '') {
-      notesList.push({
-        noteId: Date.now(),
-        noteHeader: document.querySelector('.content__header-input').value,
-        noteContent: document.querySelector('.content__note-area').value,
-        noteSelected: true,
-      })
-      getSelectNote()
-      getSelectNote(notesList.length - 1)
-    } else document.querySelector('.content__header-input').value = ''
-
-    console.log(notesList)
+      setUsedNote(newId)
+      onSelectedBar()
+    } else setUsedHeader('')
   }
-
-  const deleteNote = (usedId) => {
-    setNotesList(notesList.filter((note) => note.noteId !== usedId))
-    document.querySelector('.content__header-input').value = ''
-    document.querySelector('.content__note-area').value = ''
+  const onSelectedBar = () => {
+    document.querySelector('.content__header-input').className = 'content__header-input content__header-input_noteEdit'
+    document.querySelector('.selected-bar').style = 'display: flex'
+  }
+  const offSelectedBar = () => {
     document.querySelector('.content__header-input').className = 'content__header-input'
     document.querySelector('.selected-bar').style = 'display: none'
+  }
+  const deleteNote = () => {
+    setNotesList(notesList.filter((note) => note.noteId !== usedNote))
+    setUsedHeader('')
+    setUsedContent('')
+    offSelectedBar()
     setAreaLength(document.querySelector('.content__note-area').textLength)
   }
 
@@ -117,21 +122,23 @@ function App() {
     <div className="wrapper">
       <Header />
       <Navigation
-        usedId={usedNote.noteId}
+        usedNote={usedNote}
         notesList={notesList}
         getSelectNote={getSelectNote}
+        createNote={createNote}
         saveNote={saveNote}
         closeNote={closeNote}
-        createNote={createNote}
       />
       <Content
-        notesList={notesList}
-        usedId={usedNote.noteId}
         areaLength={areaLength}
         setAreaLength={setAreaLength}
         saveNote={saveNote}
         closeNote={closeNote}
         deleteNote={deleteNote}
+        usedHeader={usedHeader}
+        setUsedHeader={setUsedHeader}
+        usedContent={usedContent}
+        setUsedContent={setUsedContent}
       />
     </div>
   )

@@ -1,22 +1,28 @@
 import React from 'react'
 
-const Content = ({ notesList, usedId, areaLength, setAreaLength, saveNote, closeNote, deleteNote }) => {
+const Content = ({ areaLength, setAreaLength, saveNote, closeNote, deleteNote, usedHeader, setUsedHeader, usedContent, setUsedContent }) => {
   return (
     <header className="content">
       <div className="content__note-header">
-        <input type="text" maxLength="150" className="content__header-input" placeholder="Name of the new note ..." />
+        <textarea
+          rows="1"
+          maxLength="150"
+          className="content__header-input"
+          placeholder="Name of the new note ..."
+          value={usedHeader}
+          onInput={(event) => {
+            setUsedHeader(event.target.value)
+          }}
+        />
         <div className="selected-bar">
-          {/* <button className="selected-bar__bar-button" onClick={() => saveNote(usedId, notesList)}>
-            S
-          </button> */}
-          <button className="selected-bar__bar-button" onClick={() => deleteNote(usedId)}>
+          <button className="selected-bar__bar-button" onClick={() => deleteNote()}>
             D
           </button>
           <button
             className="selected-bar__close-button"
             onClick={() => {
-              saveNote(usedId, notesList)
-              closeNote(usedId, notesList)
+              saveNote()
+              closeNote()
             }}
           >
             X
@@ -29,7 +35,11 @@ const Content = ({ notesList, usedId, areaLength, setAreaLength, saveNote, close
           maxLength="1000"
           className="content__note-area"
           placeholder="Enter the content of the new note ..."
-          onInput={() => setAreaLength(document.querySelector('.content__note-area').textLength)}
+          value={usedContent}
+          onInput={(event) => {
+            setUsedContent(event.target.value)
+            setAreaLength(document.querySelector('.content__note-area').textLength)
+          }}
         />
         <div className="content__note-info">Symbols: {areaLength}, Size: , ServerSync: false</div>
       </div>
