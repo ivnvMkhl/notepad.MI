@@ -1,16 +1,26 @@
 import React from 'react'
-import NoteNavItem from './NoteNavItem'
+import { connect } from 'react-redux'
+import NavNotesList from './NavNotesList'
+import { createNote } from '../redux/actions'
 
-const Navigation = ({ usedNote, notesList, getSelectNote, createNote, saveNote, closeNote }) => {
+const Navigation = ({ usedNote, getSelectNote, createNote, saveNote, closeNote }) => {
   return (
     <nav className="navigation">
       <button
         className="navigation__crate-button"
         onClick={() => {
-          if (usedNote !== -1) {
-            saveNote()
-            closeNote()
-          } else createNote()
+          // if (usedId !== -1) {
+          //   saveNote()
+          //   closeNote()
+          // } else createNote()
+          createNote({
+            noteId: Date.now(),
+            noteHeader: usedNote.usedHeader,
+            noteContent: usedNote.usedContent,
+            noteDate: Date.now(),
+            noteSelected: false,
+          })
+          console.log(usedNote)
         }}
       >
         Create Note
@@ -35,21 +45,16 @@ const Navigation = ({ usedNote, notesList, getSelectNote, createNote, saveNote, 
           </svg>
         </div>
       </div>
-      <div className="navigation__note-list">
-        {notesList.map((n) => (
-          <NoteNavItem
-            noteHeader={n.noteHeader.length > 14 ? `${n.noteHeader.slice(0, 11)}...` : n.noteHeader}
-            noteContentCut={n.noteContent.length > 25 ? `${n.noteContent.slice(0, 18)}...` : n.noteContent}
-            noteId={n.noteId}
-            noteDate={n.noteDate}
-            noteSelected={n.noteSelected}
-            key={n.noteId}
-            getSelectNote={getSelectNote}
-          />
-        ))}
-      </div>
+      <NavNotesList getSelectNote={getSelectNote} />
     </nav>
   )
 }
 
-export default Navigation
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
+    usedNote: state.notes.usedNote,
+  }
+}
+
+export default connect(mapStateToProps, { createNote })(Navigation)

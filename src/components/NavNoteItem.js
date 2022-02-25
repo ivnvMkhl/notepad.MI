@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NoteNavItem = ({ noteId, noteHeader, noteContentCut, noteSelected, getSelectNote, noteDate }) => {
+const NavNoteItem = ({ noteId, noteHeader, noteContentCut, noteSelected, getSelectNote, noteDate }) => {
   let classes = []
 
   if (noteSelected) {
@@ -21,4 +21,4 @@ const NoteNavItem = ({ noteId, noteHeader, noteContentCut, noteSelected, getSele
   )
 }
 
-export default NoteNavItem
+export default NavNoteItem
