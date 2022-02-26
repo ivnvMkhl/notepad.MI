@@ -2,11 +2,11 @@ import React from 'react'
 import ContentNoteContent from './ContentNoteContent'
 import ContentNoteHeader from './ContentNoteHeader'
 
-const Content = ({ saveNote, closeNote, deleteNote, setUsedHeader, setAreaLength, setUsedContent }) => {
+const Content = () => {
   return (
     <header className="content">
-      <ContentNoteHeader deleteNote={deleteNote} saveNote={saveNote} closeNote={closeNote} setUsedHeader={setUsedHeader} />
-      <ContentNoteContent setAreaLength={setAreaLength} setUsedContent={setUsedContent} />
+      <ContentNoteHeader />
+      <ContentNoteContent />
     </header>
   )
 }

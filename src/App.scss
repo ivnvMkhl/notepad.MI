@@ -193,7 +193,7 @@
   overflow: auto;
   border-radius: 15px;
 }
-.content__header-input_noteEdit {
+.content__header-input_activate {
   background-color: bisque;
   border-radius: 15px 0 0 15px;
 }
@@ -210,6 +210,9 @@
 
 .selected-bar {
   display: none;
+}
+.selected-bar_activate {
+  display: flex;
 }
 .selected-bar__close-button {
   height: 3rem;

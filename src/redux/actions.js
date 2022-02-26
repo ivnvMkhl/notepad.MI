@@ -1,16 +1,16 @@
-import { CLOSE_NOTE, CREATE_NOTE, DELETE_NOTE, SAVE_NOTE, SELECT_NOTE, SET_USED_NOTE } from './types'
+import { CHANGE_USED_NOTE, CLOSE_NOTE, CREATE_NOTE, DELETE_NOTE, GET_SELECT_NOTE, GET_TEXT_LENGTH, SAVE_NOTE, NOTE_SORT } from './types'
 
-export function setUsedNote(note) {
+export function changeUsedNote(usedNote) {
   return {
-    type: SET_USED_NOTE,
-    payload: note,
+    type: CHANGE_USED_NOTE,
+    payload: usedNote,
   }
 }
 
-export function createNote(note) {
+export function getSelectNote(noteId) {
   return {
-    type: CREATE_NOTE,
-    payload: note,
+    type: GET_SELECT_NOTE,
+    payload: noteId,
   }
 }
 
@@ -32,8 +32,24 @@ export function deleteNote() {
   }
 }
 
-export function selectNote() {
+export function createNote() {
   return {
-    type: SELECT_NOTE,
+    type: CREATE_NOTE,
+    payload: Date.now(),
+  }
+}
+
+export function getTextLength(areaLength) {
+  return {
+    type: GET_TEXT_LENGTH,
+    payload: areaLength,
+  }
+}
+
+//types: start, abc, date, size
+export function noteSort(type) {
+  return {
+    type: NOTE_SORT,
+    payload: type,
   }
 }

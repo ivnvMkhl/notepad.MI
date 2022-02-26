@@ -1,8 +1,11 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { getSelectNote, getTextLength } from '../redux/actions'
 
-const NavNoteItem = ({ noteId, noteHeader, noteContentCut, noteSelected, getSelectNote, noteDate }) => {
+const NavNoteItem = ({ noteId, noteHeader, noteContentCut, noteDate, noteSelected, noteContent }) => {
+  const dispatch = useDispatch()
+
   let classes = []
-
   if (noteSelected) {
     classes.push('note-item_select')
   }
@@ -11,7 +14,8 @@ const NavNoteItem = ({ noteId, noteHeader, noteContentCut, noteSelected, getSele
     <button
       className={`note-item ${classes.join(' ')}`}
       onClick={() => {
-        getSelectNote(noteId)
+        dispatch(getSelectNote(noteId))
+        dispatch(getTextLength(noteContent.length))
       }}
     >
       <div className="note-item__header">{noteHeader}</div>

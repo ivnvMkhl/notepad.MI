@@ -1,7 +1,13 @@
-import { connect } from 'react-redux'
-import { setUsedNote } from '../redux/actions'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeUsedNote, getTextLength } from '../redux/actions'
 
-const ContentNoteContent = ({ areaLength, usedNote, setUsedNote }) => {
+const ContentNoteContent = () => {
+  const dispatch = useDispatch()
+  const usedNote = useSelector((state) => state.usedNote)
+  const usedContent = useSelector((state) => state.usedNote.usedContent)
+  const areaLength = useSelector((state) => state.noteParams.areaLength)
+
   return (
     <div className="content__note-content">
       <textarea
@@ -9,15 +15,10 @@ const ContentNoteContent = ({ areaLength, usedNote, setUsedNote }) => {
         maxLength="1000"
         className="content__note-area"
         placeholder="Enter the content of the new note ..."
-        value={usedNote.usedContent}
+        value={usedContent}
         onInput={(event) => {
-          setUsedNote({
-            usedId: 777,
-            usedHeader: 'fuck',
-            usedContent: 'fuck',
-          })
-          areaLength = document.querySelector('.content__note-area').textLength
-          console.log(areaLength)
+          dispatch(changeUsedNote({ ...usedNote, usedContent: event.target.value }))
+          dispatch(getTextLength(event.target.value.length))
         }}
       />
       <div className="content__note-info">Symbols: {areaLength}, Size: , ServerSync: false</div>
@@ -25,15 +26,4 @@ const ContentNoteContent = ({ areaLength, usedNote, setUsedNote }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    areaLength: state.notes.noteParams.areaLength,
-    usedNote: state.notes.usedNote,
-  }
-}
-
-const mapDispatchToProps = {
-  setUsedNote,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContentNoteContent)
+export default ContentNoteContent

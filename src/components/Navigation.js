@@ -1,26 +1,24 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { closeNote, createNote, noteSort, saveNote } from '../redux/actions'
 import NavNotesList from './NavNotesList'
-import { createNote } from '../redux/actions'
 
-const Navigation = ({ usedNote, getSelectNote, createNote, saveNote, closeNote }) => {
+const Navigation = () => {
+  const dispatch = useDispatch()
+  const usedId = useSelector((state) => state.usedNote.usedId)
+
   return (
     <nav className="navigation">
       <button
         className="navigation__crate-button"
         onClick={() => {
-          // if (usedId !== -1) {
-          //   saveNote()
-          //   closeNote()
-          // } else createNote()
-          createNote({
-            noteId: Date.now(),
-            noteHeader: usedNote.usedHeader,
-            noteContent: usedNote.usedContent,
-            noteDate: Date.now(),
-            noteSelected: false,
-          })
-          console.log(usedNote)
+          if (usedId === -1) {
+            dispatch(createNote())
+            dispatch(noteSort('date'))
+          } else {
+            dispatch(saveNote())
+            dispatch(closeNote())
+          }
         }}
       >
         Create Note
@@ -45,16 +43,9 @@ const Navigation = ({ usedNote, getSelectNote, createNote, saveNote, closeNote }
           </svg>
         </div>
       </div>
-      <NavNotesList getSelectNote={getSelectNote} />
+      <NavNotesList />
     </nav>
   )
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    usedNote: state.notes.usedNote,
-  }
-}
-
-export default connect(mapStateToProps, { createNote })(Navigation)
+export default Navigation
