@@ -1,0 +1,20 @@
+.wrapper {
+  display: grid;
+  height: 100vh;
+  width: 1440px;
+  grid-template-areas:
+    'A A'
+    'B C'
+    'B C';
+  grid-template-rows: 40px 1fr;
+  grid-template-columns: 200px 1fr;
+  row-gap: 0;
+  column-gap: 8px;
+}
+
+/* Media */
+@media (max-width: 1440px) {
+  .wrapper {
+    width: calc(100vw - 50px);
+  }
+}

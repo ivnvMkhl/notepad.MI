@@ -1,0 +1,127 @@
+/* Navigation Bar */
+.navigation {
+  grid-area: B;
+  display: flex;
+  flex-direction: column;
+}
+.navigation__crate-button {
+  flex-shrink: 0;
+  color: #28343a;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f5f6;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  border: 1px solid rgba(40, 52, 58, 0.3);
+  cursor: pointer;
+}
+.navigation__crate-button:hover {
+  background: rgb(224, 224, 224);
+}
+.navigation__crate-button:focus {
+  outline: 0px solid #28343a;
+  background: rgb(177, 177, 177);
+}
+.navigation__find-block {
+  flex-shrink: 0;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  background: #f4f5f6;
+  border-radius: 15px;
+  padding-left: 15px;
+  margin: 8px 0 0 0;
+}
+.navigation__find-icon {
+  width: 15px;
+  height: 15px;
+}
+.navigation__find-input {
+  font-family: 'DM Sans', sans-serif;
+  background: #f4f5f6;
+  font-weight: 700;
+  font-size: 14px;
+  width: 150px;
+  border: 0;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: auto;
+  margin-left: 11px;
+}
+.navigation__find-input:focus {
+  outline: 1px solid #28343a;
+  border-radius: 2px;
+}
+.navigation__sort-bar {
+  flex-shrink: 0;
+  margin: 8px 0 0 0;
+  height: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.navigation__sort-button {
+  border: 0;
+  height: 2rem;
+  background: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.navigation__sort-button:hover {
+  background: rgb(224, 224, 224);
+}
+.navigation__sort-button:focus {
+  outline: 0px;
+  background: rgb(224, 224, 224);
+}
+.navigation__sort-button_left {
+  border-radius: 15px 0 0 15px;
+  border-right: 1px solid rgba(40, 52, 58, 0.3);
+}
+.navigation__sort-button_right {
+  border-radius: 0 15px 15px 0;
+}
+.navigation__sort-button_left_onModal {
+  border-radius: 15px 0 0 0;
+  border-right: 1px solid rgba(40, 52, 58, 0.3);
+  background: rgb(224, 224, 224);
+}
+
+.navigation__sort-icon {
+  width: 16px;
+  height: 16px;
+}
+.navigation__sort-icon svg {
+  fill: #28343a;
+}
+
+//MODAL STYLES
+.navigation__sort-modal {
+  position: absolute;
+  top: 184px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0 0 0 0;
+}
+.sort-modal__item {
+  background: rgb(224, 224, 224);
+  border: 0;
+  width: 100px;
+  height: 2rem;
+}
+.sort-modal__item:hover {
+  background: rgb(177, 177, 177);
+}
+.sort-modal__item:focus {
+  outline: 0px;
+  background: rgb(177, 177, 177);
+}
+.sort-modal__item_end {
+  border-radius: 0 0 15px 15px;
+}

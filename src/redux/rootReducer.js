@@ -1,4 +1,17 @@
-import { CHANGE_USED_NOTE, CLOSE_NOTE, CREATE_NOTE, DELETE_NOTE, GET_SELECT_NOTE, GET_TEXT_LENGTH, NOTE_SORT, SAVE_NOTE } from './types'
+import {
+  CHANGE_NOTES_SORT,
+  CHANGE_USED_NOTE,
+  CLOSE_NOTE,
+  CREATE_NOTE,
+  DELETE_NOTE,
+  GET_SELECT_NOTE,
+  GET_TEXT_LENGTH,
+  INVERT_NOTES_SORT,
+  OFF_SORT_MODAL,
+  ON_SORT_MODAL,
+  SAVE_NOTE,
+  SWITCH_DISPL_NOTES,
+} from './types'
 
 const initialSate = {
   notesList: [
@@ -27,20 +40,25 @@ const initialSate = {
       noteSelected: false,
     },
   ],
+
   usedNote: {
     usedId: -1,
     usedHeader: 'init test',
     usedContent: 'init test',
   },
 
-  noteParams: {
+  appParams: {
     areaLength: 0,
-    sortFlag: '',
+    sortType: 'update',
+    invertSortFlag: false,
+    sortModalFlag: false,
+    displayBttnFlag: false,
   },
 }
 
 export const rootReducer = (state = initialSate, action) => {
   switch (action.type) {
+    //NOTE REDUCERS
     case CHANGE_USED_NOTE:
       return { ...state, usedNote: action.payload }
     case GET_SELECT_NOTE:
@@ -53,11 +71,13 @@ export const rootReducer = (state = initialSate, action) => {
               state.usedNote.usedId = note.noteId
               state.usedNote.usedHeader = note.noteHeader
               state.usedNote.usedContent = note.noteContent
+              state.appParams.areaLength = note.noteContent.length
             } else {
               note.noteSelected = false
               state.usedNote.usedId = -1
               state.usedNote.usedHeader = ''
               state.usedNote.usedContent = ''
+              state.appParams.areaLength = 0
             }
           } else {
             note.noteSelected = false
@@ -77,6 +97,7 @@ export const rootReducer = (state = initialSate, action) => {
           if (note.noteSelected === true) note.noteSelected = false
           return note
         }),
+        appParams: { ...state.appParams, areaLength: 0 },
       }
     case SAVE_NOTE:
       return {
@@ -94,7 +115,11 @@ export const rootReducer = (state = initialSate, action) => {
       return {
         ...state,
         notesList: state.notesList.filter((note) => note.noteId !== state.usedNote.usedId),
-        usedNote: { ...state.usedNote, usedId: -1 },
+        usedNote: {
+          usedId: -1,
+          usedHeader: '',
+          usedContent: '',
+        },
       }
     case CREATE_NOTE:
       return {
@@ -111,27 +136,25 @@ export const rootReducer = (state = initialSate, action) => {
         ]),
         usedNote: { ...state.usedNote, usedId: action.payload },
       }
+    //APP REDUCERS
     case GET_TEXT_LENGTH:
-      return { ...state, noteParams: { ...state.noteParams, areaLength: action.payload } }
-    case NOTE_SORT:
-      if (action.payload === 'date') {
-        return {
-          ...state,
-          notesList: state.notesList.sort((a, b) => {
-            return b.noteDate - a.noteDate
-          }),
-          noteParams: { ...state.noteParams, sortFlag: !state.noteParams.sortFlag },
-        }
-      } else if (action.payload === 'update') {
-        return {
-          ...state,
-          notesList: state.notesList.sort((a, b) => {
-            return b.noteChange - a.noteChange
-          }),
-          noteParams: { ...state.noteParams, sortFlag: !state.noteParams.sortFlag },
-        }
-      } else return state
-
+      return { ...state, appParams: { ...state.appParams, areaLength: action.payload } }
+    case CHANGE_NOTES_SORT:
+      return {
+        ...state,
+        appParams: {
+          ...state.appParams,
+          sortType: action.payload,
+        },
+      }
+    case INVERT_NOTES_SORT:
+      return { ...state, appParams: { ...state.appParams, invertSortFlag: !state.appParams.invertSortFlag } }
+    case SWITCH_DISPL_NOTES:
+      return { ...state, appParams: { ...state.appParams, displayBttnFlag: !state.appParams.displayBttnFlag } }
+    case ON_SORT_MODAL:
+      return { ...state, appParams: { ...state.appParams, sortModalFlag: true } }
+    case OFF_SORT_MODAL:
+      return { ...state, appParams: { ...state.appParams, sortModalFlag: false } }
     default:
       return state
   }

@@ -1,0 +1,31 @@
+/* Heared styles */
+.header {
+  grid-area: A;
+  display: flex;
+}
+.header__logo {
+  height: 100%;
+  width: 205px;
+  display: flex;
+  align-items: center;
+}
+.header__app-label {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+}
+.header__logo svg {
+  fill: #28343a;
+}
+.header__app-name {
+  font-size: 24px;
+  font-weight: 500;
+}
+.header_dd-item {
+  color: #28343a;
+  padding: 0 10px;
+  border: 0;
+  background: #fff;
+  line-height: 3rem;
+  cursor: pointer;
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import HeaderMenuBlock from './HeaderMenuBlock'
+import './header.scss'
 
 const Header = () => {
   return (

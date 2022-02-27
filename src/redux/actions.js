@@ -1,5 +1,19 @@
-import { CHANGE_USED_NOTE, CLOSE_NOTE, CREATE_NOTE, DELETE_NOTE, GET_SELECT_NOTE, GET_TEXT_LENGTH, SAVE_NOTE, NOTE_SORT } from './types'
+import {
+  CHANGE_USED_NOTE,
+  CLOSE_NOTE,
+  CREATE_NOTE,
+  DELETE_NOTE,
+  GET_SELECT_NOTE,
+  GET_TEXT_LENGTH,
+  SAVE_NOTE,
+  CHANGE_NOTES_SORT,
+  SWITCH_DISPL_NOTES,
+  ON_SORT_MODAL,
+  OFF_SORT_MODAL,
+  INVERT_NOTES_SORT,
+} from './types'
 
+//NOTE ACTIONS
 export function changeUsedNote(usedNote) {
   return {
     type: CHANGE_USED_NOTE,
@@ -39,6 +53,7 @@ export function createNote() {
   }
 }
 
+//APP ACTIONS
 export function getTextLength(areaLength) {
   return {
     type: GET_TEXT_LENGTH,
@@ -46,10 +61,33 @@ export function getTextLength(areaLength) {
   }
 }
 
-//types: start, abc, date, size
-export function noteSort(type) {
+export function changeNoteSort(type) {
   return {
-    type: NOTE_SORT,
+    type: CHANGE_NOTES_SORT,
     payload: type,
+  }
+}
+
+export function invertNoteSort() {
+  return {
+    type: INVERT_NOTES_SORT,
+  }
+}
+
+export function switchDisplNotes() {
+  return {
+    type: SWITCH_DISPL_NOTES,
+  }
+}
+
+export function onSortModal() {
+  return {
+    type: ON_SORT_MODAL,
+  }
+}
+
+export function offSortModal() {
+  return {
+    type: OFF_SORT_MODAL,
   }
 }
