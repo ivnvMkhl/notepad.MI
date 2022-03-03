@@ -21,11 +21,20 @@
   font-size: 24px;
   font-weight: 500;
 }
-.header_dd-item {
+.header__dd-button {
   color: #28343a;
   padding: 0 10px;
   border: 0;
   background: #fff;
-  line-height: 3rem;
   cursor: pointer;
+}
+.header__modal-container {
+  background: bisque;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+.header__dd-items {
+  width: 2rem;
+  padding: 0, 5px;
 }

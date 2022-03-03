@@ -1,8 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import HeaderMenuBlock from './HeaderMenuBlock'
-import './header.scss'
+import './style/header.scss'
 
 const Header = () => {
+  const menuTree = useSelector((state) => state.menuTree)
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -13,10 +16,9 @@ const Header = () => {
         </div>
         <h1 className="header__app-name">notepad.MI</h1>
       </div>
-      <HeaderMenuBlock name="File" />
-      <HeaderMenuBlock name="Edit" />
-      <HeaderMenuBlock name="Server" />
-      <HeaderMenuBlock name="Theme" />
+      {menuTree.map((item) => (
+        <HeaderMenuBlock name={item.blockTitle} items={item.blockItems} key={item.id} isOpen={item.blockOpen} />
+      ))}
     </header>
   )
 }

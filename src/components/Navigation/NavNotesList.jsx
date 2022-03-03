@@ -29,6 +29,16 @@ const NavNoteList = () => {
     notesList.sort((a, b) => {
       return b.noteContent.length - a.noteContent.length
     })
+  } else if (sortType === 'abc') {
+    notesList.sort((a, b) => {
+      if (a.noteHeader > b.noteHeader) {
+        return 1
+      }
+      if (a.noteHeader < b.noteHeader) {
+        return -1
+      }
+      return 0
+    })
   }
 
   if (invertSortFlag) notesList.reverse()

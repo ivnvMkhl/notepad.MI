@@ -11,6 +11,7 @@ import {
   ON_SORT_MODAL,
   OFF_SORT_MODAL,
   INVERT_NOTES_SORT,
+  ON_MENU_BLOCK,
 } from './types'
 
 //NOTE ACTIONS
@@ -89,5 +90,12 @@ export function onSortModal() {
 export function offSortModal() {
   return {
     type: OFF_SORT_MODAL,
+  }
+}
+
+export function onMenuBlock(title) {
+  return {
+    type: ON_MENU_BLOCK,
+    payload: title,
   }
 }

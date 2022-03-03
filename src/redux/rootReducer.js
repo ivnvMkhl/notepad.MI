@@ -8,53 +8,13 @@ import {
   GET_TEXT_LENGTH,
   INVERT_NOTES_SORT,
   OFF_SORT_MODAL,
+  ON_MENU_BLOCK,
   ON_SORT_MODAL,
   SAVE_NOTE,
   SWITCH_DISPL_NOTES,
 } from './types'
 
-const initialSate = {
-  notesList: [
-    {
-      noteId: 1645721908699,
-      noteHeader: 'Note One',
-      noteContent: '1 Description one more description one more description one more description one more description',
-      noteDate: new Date(1645721908699),
-      noteChange: new Date(1645721908699),
-      noteSelected: false,
-    },
-    {
-      noteId: 1645721908564,
-      noteHeader: 'Note Two',
-      noteContent: '2 Description one more description one more description one more description one more description',
-      noteDate: new Date(1645721908564),
-      noteChange: new Date(1645721908564),
-      noteSelected: false,
-    },
-    {
-      noteId: 1645721908385,
-      noteHeader: 'Note Tree',
-      noteContent: '3 Description one more description one more description one more description one more description',
-      noteDate: new Date(1645721908385),
-      noteChange: new Date(1645721908385),
-      noteSelected: false,
-    },
-  ],
-
-  usedNote: {
-    usedId: -1,
-    usedHeader: 'init test',
-    usedContent: 'init test',
-  },
-
-  appParams: {
-    areaLength: 0,
-    sortType: 'update',
-    invertSortFlag: false,
-    sortModalFlag: false,
-    displayBttnFlag: false,
-  },
-}
+import { initialSate } from './initialState'
 
 export const rootReducer = (state = initialSate, action) => {
   switch (action.type) {
@@ -155,6 +115,14 @@ export const rootReducer = (state = initialSate, action) => {
       return { ...state, appParams: { ...state.appParams, sortModalFlag: true } }
     case OFF_SORT_MODAL:
       return { ...state, appParams: { ...state.appParams, sortModalFlag: false } }
+    case ON_MENU_BLOCK:
+      return {
+        ...state,
+        menuTree: state.menuTree.map((item) => {
+          item.blockTitle === action.payload ? (item.blockOpen = !item.blockOpen) : (item.blockOpen = false)
+          return item
+        }),
+      }
     default:
       return state
   }

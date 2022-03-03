@@ -1,5 +1,5 @@
 import React from 'react'
-import './content.scss'
+import './style/content.scss'
 import ContentNoteContent from './ContentNoteContent'
 import ContentNoteHeader from './ContentNoteHeader'
 
