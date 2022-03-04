@@ -1,10 +1,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { headerMenuFunc, onMenuBlock } from '../../redux/actions'
+import { closeNote, createNote, deleteNote, onMenuBlock, saveNote } from '../../redux/actions'
 
 const HeaderMenuBlock = ({ name, items, isOpen }) => {
   const dispatch = useDispatch()
   const headerMenuOpen = useSelector((state) => state.appParams.headerMenuOpen)
+  const usedId = useSelector((state) => state.usedNote.usedId)
+  const usedHeader = useSelector((state) => state.usedNote.usedHeader)
 
   if (isOpen) {
     return (
@@ -19,7 +21,23 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
         </button>
         <div className="header__modal-container">
           {items.map((item) => (
-            <buttons className="header__dd-items" key={item} onClick={() => dispatch(headerMenuFunc(item))}>
+            <buttons
+              className="header__dd-items"
+              key={item}
+              onClick={() => {
+                //Select action to click header menu
+                if (item === 'Save') dispatch(saveNote())
+                else if (item === 'Close') dispatch(closeNote())
+                else if (item === 'Delete') dispatch(deleteNote())
+                else if (item === 'Create') {
+                  if (usedId === -1) {
+                    usedHeader ? dispatch(createNote()) : dispatch({ type: 'SHOW_ALERT' })
+                  }
+                } else dispatch({ type: 'APP/UNDEFINDE_FUNC' })
+
+                dispatch(onMenuBlock(name))
+              }}
+            >
               {item}
             </buttons>
           ))}

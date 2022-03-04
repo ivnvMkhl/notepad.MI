@@ -1,32 +1,30 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { invertNoteSort, offSortModal, onSortModal, switchDisplNotes } from '../../redux/actions'
+import { offSortModal, onSortModal, switchDisplNotes } from '../../redux/actions'
 import DisplBttnIcon from './DisplBttnIcon'
 import SortBttnIcon from './SortBttnIcon'
 
 const NavSortBar = () => {
   const dispatch = useDispatch()
   const sortModalFlag = useSelector((state) => state.appParams.sortModalFlag)
+  const sortType = useSelector((state) => state.appParams.sortType)
 
-  let leftBttnStyle = '',
-    rightBttnStyle = ''
-  if (sortModalFlag) {
-    leftBttnStyle = 'navigation__sort-button_left_onModal'
-    rightBttnStyle = 'navigation__sort-button_right_onModal'
-  }
+  let leftBttnStyle = ''
+  if (sortModalFlag) leftBttnStyle = 'navigation__sort-button_onModal'
 
   return (
     <div className="navigation__sort-bar">
       <button
-        className={`navigation__sort-button navigation__sort-button_left ${leftBttnStyle}`}
-        onMouseEnter={() => dispatch(onSortModal())}
-        onMouseLeave={() => dispatch(offSortModal())}
-        onClick={() => dispatch(invertNoteSort())}
+        className={`navigation__sort-button ${leftBttnStyle}`}
+        onClick={() => {
+          sortModalFlag ? dispatch(offSortModal()) : dispatch(onSortModal())
+        }}
       >
+        {sortType}
         <SortBttnIcon />
       </button>
-      <button className={`navigation__sort-button navigation__sort-button_right ${rightBttnStyle}`} onClick={() => dispatch(switchDisplNotes())}>
+      <button className={`navigation__view-button`} onClick={() => dispatch(switchDisplNotes())}>
         <DisplBttnIcon />
       </button>
     </div>

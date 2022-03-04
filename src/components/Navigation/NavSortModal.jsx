@@ -7,18 +7,22 @@ const NavSortModal = () => {
   const dispatch = useDispatch()
   const sortModalFlag = useSelector((state) => state.appParams.sortModalFlag)
   const sortType = useSelector((state) => state.appParams.sortType)
+  const invertSortFlag = useSelector((state) => state.appParams.invertSortFlag)
 
   if (sortModalFlag) {
     return (
-      <div className="navigation__sort-modal" onMouseEnter={() => dispatch(onSortModal())} onMouseLeave={() => dispatch(offSortModal())}>
+      <div className="navigation__sort-modal">
         <button
           className="sort-modal__item"
           onClick={() => {
-            if (sortType === 'update') {
+            if (sortType === 'Update') {
               dispatch(invertNoteSort())
               dispatch(offSortModal())
             } else {
-              dispatch(changeNoteSort('update'))
+              if (invertSortFlag) {
+                dispatch(invertNoteSort())
+              }
+              dispatch(changeNoteSort('Update'))
               dispatch(offSortModal())
             }
           }}
@@ -28,11 +32,14 @@ const NavSortModal = () => {
         <button
           className="sort-modal__item"
           onClick={() => {
-            if (sortType === 'date') {
+            if (sortType === 'Date') {
               dispatch(invertNoteSort())
               dispatch(offSortModal())
             } else {
-              dispatch(changeNoteSort('date'))
+              if (invertSortFlag) {
+                dispatch(invertNoteSort())
+              }
+              dispatch(changeNoteSort('Date'))
               dispatch(offSortModal())
             }
           }}
@@ -42,11 +49,14 @@ const NavSortModal = () => {
         <button
           className="sort-modal__item"
           onClick={() => {
-            if (sortType === 'size') {
+            if (sortType === 'Size') {
               dispatch(invertNoteSort())
               dispatch(offSortModal())
             } else {
-              dispatch(changeNoteSort('size'))
+              if (invertSortFlag) {
+                dispatch(invertNoteSort())
+              }
+              dispatch(changeNoteSort('Size'))
               dispatch(offSortModal())
             }
           }}
@@ -56,11 +66,14 @@ const NavSortModal = () => {
         <button
           className="sort-modal__item sort-modal__item_end"
           onClick={() => {
-            if (sortType === 'abc') {
+            if (sortType === 'ABC') {
               dispatch(invertNoteSort())
               dispatch(offSortModal())
             } else {
-              dispatch(changeNoteSort('abc'))
+              if (invertSortFlag) {
+                dispatch(invertNoteSort())
+              }
+              dispatch(changeNoteSort('ABC'))
               dispatch(offSortModal())
             }
           }}

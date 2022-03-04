@@ -6,7 +6,6 @@ import {
   DELETE_NOTE,
   GET_SELECT_NOTE,
   GET_TEXT_LENGTH,
-  HEADER_MENU_FUNC,
   INVERT_NOTES_SORT,
   OFF_SORT_MODAL,
   ON_MENU_BLOCK,
@@ -132,8 +131,6 @@ export const rootReducer = (state = initialSate, action) => {
           return item
         }),
       }
-    case HEADER_MENU_FUNC:
-      return state
     default:
       return state
   }

@@ -67,9 +67,12 @@
   height: 2rem;
   background: #f6f6f6;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 12px;
   align-items: center;
   cursor: pointer;
+  border-radius: 15px 0 0 15px;
+  border-right: 1px solid rgba(40, 52, 58, 0.3);
 }
 .navigation__sort-button:hover {
   background: rgb(224, 224, 224);
@@ -78,16 +81,27 @@
   outline: 0px;
   background: rgb(224, 224, 224);
 }
-.navigation__sort-button_left {
-  border-radius: 15px 0 0 15px;
-  border-right: 1px solid rgba(40, 52, 58, 0.3);
-}
-.navigation__sort-button_right {
-  border-radius: 0 15px 15px 0;
-}
-.navigation__sort-button_left_onModal {
+.navigation__sort-button_onModal {
   border-radius: 15px 0 0 0;
   border-right: 1px solid rgba(40, 52, 58, 0.3);
+  background: rgb(224, 224, 224);
+}
+
+.navigation__view-button {
+  border: 0;
+  height: 2rem;
+  background: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0 15px 15px 0;
+}
+.navigation__view-button:hover {
+  background: rgb(224, 224, 224);
+}
+.navigation__view-button:focus {
+  outline: 0px;
   background: rgb(224, 224, 224);
 }
 

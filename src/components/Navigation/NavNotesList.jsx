@@ -17,19 +17,19 @@ const NavNoteList = () => {
 
   //sort type set
   //types: update, date, size, abc,
-  if (sortType === 'update') {
+  if (sortType === 'Update') {
     notesList.sort((a, b) => {
       return b.noteChange - a.noteChange
     })
-  } else if (sortType === 'date') {
+  } else if (sortType === 'Date') {
     notesList.sort((a, b) => {
       return b.noteDate - a.noteDate
     })
-  } else if (sortType === 'size') {
+  } else if (sortType === 'Size') {
     notesList.sort((a, b) => {
       return b.noteContent.length - a.noteContent.length
     })
-  } else if (sortType === 'abc') {
+  } else if (sortType === 'ABC') {
     notesList.sort((a, b) => {
       if (a.noteHeader > b.noteHeader) {
         return 1
