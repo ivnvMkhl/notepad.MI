@@ -38,6 +38,7 @@ export const initialSate = {
     invertSortFlag: false,
     sortModalFlag: false,
     displayBttnFlag: false,
+    headerMenuOpen: false,
   },
 
   menuTree: [

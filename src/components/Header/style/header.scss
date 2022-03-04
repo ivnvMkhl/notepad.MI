@@ -21,6 +21,9 @@
   font-size: 24px;
   font-weight: 500;
 }
+.header__dd-block {
+  display: flex;
+}
 .header__dd-button {
   color: #28343a;
   padding: 0 10px;
@@ -28,13 +31,33 @@
   background: #fff;
   cursor: pointer;
 }
+.header__dd-button:hover {
+  background: rgb(207, 207, 207);
+}
+.header__dd-button_select {
+  background: rgb(207, 207, 207);
+  color: #28343a;
+  padding: 0 10px;
+  border: 0;
+  cursor: pointer;
+}
+.header__dd-button:focus {
+  outline: 0;
+  background: rgb(207, 207, 207);
+}
 .header__modal-container {
-  background: bisque;
+  background: rgb(207, 207, 207);
   display: flex;
   flex-direction: column;
   position: absolute;
+  justify-content: left;
+  top: 40px;
 }
 .header__dd-items {
-  width: 2rem;
-  padding: 0, 5px;
+  padding: 0.5rem 4rem 0.5rem 0.5rem;
+  font-size: 14px;
+}
+
+.header__dd-items:hover {
+  background: rgb(236, 236, 236);
 }

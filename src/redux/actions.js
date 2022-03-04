@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import {
   CHANGE_USED_NOTE,
   CLOSE_NOTE,
@@ -12,7 +13,10 @@ import {
   OFF_SORT_MODAL,
   INVERT_NOTES_SORT,
   ON_MENU_BLOCK,
+  HEADER_MENU_FUNC,
 } from './types'
+
+const dispatch = useDispatch()
 
 //NOTE ACTIONS
 export function changeUsedNote(usedNote) {
@@ -97,5 +101,17 @@ export function onMenuBlock(title) {
   return {
     type: ON_MENU_BLOCK,
     payload: title,
+  }
+}
+
+export function headerMenuFunc(func) {
+  switch (func) {
+    case 'Create':
+      dispatch(createNote())
+    default:
+      return {
+        type: HEADER_MENU_FUNC,
+        payload: func,
+      }
   }
 }

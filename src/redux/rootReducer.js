@@ -6,6 +6,7 @@ import {
   DELETE_NOTE,
   GET_SELECT_NOTE,
   GET_TEXT_LENGTH,
+  HEADER_MENU_FUNC,
   INVERT_NOTES_SORT,
   OFF_SORT_MODAL,
   ON_MENU_BLOCK,
@@ -119,10 +120,20 @@ export const rootReducer = (state = initialSate, action) => {
       return {
         ...state,
         menuTree: state.menuTree.map((item) => {
-          item.blockTitle === action.payload ? (item.blockOpen = !item.blockOpen) : (item.blockOpen = false)
+          if (item.blockTitle === action.payload) {
+            if (item.blockOpen === false) {
+              item.blockOpen = true
+              state.appParams.headerMenuOpen = true
+            } else {
+              item.blockOpen = false
+              state.appParams.headerMenuOpen = false
+            }
+          } else item.blockOpen = false
           return item
         }),
       }
+    case HEADER_MENU_FUNC:
+      return state
     default:
       return state
   }
