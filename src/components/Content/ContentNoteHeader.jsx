@@ -4,9 +4,9 @@ import { changeUsedNote, closeNote, deleteNote, saveNote } from '../../redux/act
 
 const ContentNoteHeader = () => {
   const dispatch = useDispatch()
-  const usedNote = useSelector((state) => state.usedNote)
-  const usedHeader = useSelector((state) => state.usedNote.usedHeader)
-  const usedId = useSelector((state) => state.usedNote.usedId)
+  const usedNote = useSelector((state) => state.note.usedNote)
+  const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
+  const usedId = useSelector((state) => state.note.usedNote.usedId)
 
   return (
     <div className="content__note-header">

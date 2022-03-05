@@ -1,16 +1,19 @@
 import React from 'react'
 import './style/App.scss'
-import Header from './components/Header/Header'
-import Navigation from './components/Navigation/Navigation'
-import Content from './components/Content/Content'
+import { Route, Routes } from 'react-router-dom'
+import Main from './components/Main'
+import NotFound from './components/NotFound'
+import Login from './components/Login/Login'
+import SignUp from './components/Login/SignUp'
 
 function App() {
   return (
-    <div className="wrapper">
-      <Header />
-      <Navigation />
-      <Content />
-    </div>
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/registration" element={<SignUp />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
 

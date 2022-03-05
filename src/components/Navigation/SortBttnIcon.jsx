@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const SortBttnIcon = () => {
-  const invertSortFlag = useSelector((state) => state.appParams.invertSortFlag)
+  const invertSortFlag = useSelector((state) => state.app.appParams.invertSortFlag)
 
   if (!invertSortFlag) {
     return (

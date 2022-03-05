@@ -4,9 +4,9 @@ import { closeNote, createNote, deleteNote, onMenuBlock, saveNote } from '../../
 
 const HeaderMenuBlock = ({ name, items, isOpen }) => {
   const dispatch = useDispatch()
-  const headerMenuOpen = useSelector((state) => state.appParams.headerMenuOpen)
-  const usedId = useSelector((state) => state.usedNote.usedId)
-  const usedHeader = useSelector((state) => state.usedNote.usedHeader)
+  const headerMenuOpen = useSelector((state) => state.app.appParams.headerMenuOpen)
+  const usedId = useSelector((state) => state.note.usedNote.usedId)
+  const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
 
   if (isOpen) {
     return (

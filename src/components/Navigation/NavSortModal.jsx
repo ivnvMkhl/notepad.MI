@@ -5,9 +5,9 @@ import { changeNoteSort, invertNoteSort, offSortModal, onSortModal } from '../..
 
 const NavSortModal = () => {
   const dispatch = useDispatch()
-  const sortModalFlag = useSelector((state) => state.appParams.sortModalFlag)
-  const sortType = useSelector((state) => state.appParams.sortType)
-  const invertSortFlag = useSelector((state) => state.appParams.invertSortFlag)
+  const sortModalFlag = useSelector((state) => state.app.appParams.sortModalFlag)
+  const sortType = useSelector((state) => state.app.appParams.sortType)
+  const invertSortFlag = useSelector((state) => state.app.appParams.invertSortFlag)
 
   if (sortModalFlag) {
     return (

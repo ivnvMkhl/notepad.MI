@@ -9,8 +9,8 @@ import NavSortModal from './NavSortModal'
 
 const Navigation = () => {
   const dispatch = useDispatch()
-  const usedId = useSelector((state) => state.usedNote.usedId)
-  const usedHeader = useSelector((state) => state.usedNote.usedHeader)
+  const usedId = useSelector((state) => state.note.usedNote.usedId)
+  const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
 
   return (
     <nav className="navigation">

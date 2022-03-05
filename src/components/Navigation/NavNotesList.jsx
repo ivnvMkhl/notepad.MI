@@ -3,9 +3,9 @@ import NavNoteItem from './NavNoteItem'
 import './style/navNotesList.scss'
 
 const NavNoteList = () => {
-  const notesList = useSelector((state) => state.notesList)
-  const sortType = useSelector((state) => state.appParams.sortType)
-  const invertSortFlag = useSelector((state) => state.appParams.invertSortFlag)
+  const notesList = useSelector((state) => state.note.notesList)
+  const sortType = useSelector((state) => state.app.appParams.sortType)
+  const invertSortFlag = useSelector((state) => state.app.appParams.invertSortFlag)
 
   if (!notesList.length) {
     return (

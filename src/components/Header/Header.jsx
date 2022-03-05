@@ -4,7 +4,7 @@ import HeaderMenuBlock from './HeaderMenuBlock'
 import './style/header.scss'
 
 const Header = () => {
-  const menuTree = useSelector((state) => state.menuTree)
+  const menuTree = useSelector((state) => state.app.menuTree)
 
   return (
     <header className="header">

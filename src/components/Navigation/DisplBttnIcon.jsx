@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const DisplBttnIcon = () => {
-  const displayBttnFlag = useSelector((state) => state.appParams.displayBttnFlag)
+  const displayBttnFlag = useSelector((state) => state.app.appParams.displayBttnFlag)
 
   if (!displayBttnFlag) {
     return (

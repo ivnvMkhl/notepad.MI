@@ -4,11 +4,11 @@ import { changeUsedNote, getTextLength } from '../../redux/actions'
 
 const ContentNoteContent = () => {
   const dispatch = useDispatch()
-  const usedNote = useSelector((state) => state.usedNote)
-  const usedContent = useSelector((state) => state.usedNote.usedContent)
-  const areaLength = useSelector((state) => state.appParams.areaLength)
-  const usedId = useSelector((state) => state.usedNote.usedId)
-  const notesList = useSelector((state) => state.notesList)
+  const usedNote = useSelector((state) => state.note.usedNote)
+  const usedContent = useSelector((state) => state.note.usedNote.usedContent)
+  const areaLength = useSelector((state) => state.app.appParams.areaLength)
+  const usedId = useSelector((state) => state.note.usedNote.usedId)
+  const notesList = useSelector((state) => state.note.notesList)
 
   let infoTime = '',
     infoDate = '',

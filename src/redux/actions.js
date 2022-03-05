@@ -12,7 +12,23 @@ import {
   OFF_SORT_MODAL,
   INVERT_NOTES_SORT,
   ON_MENU_BLOCK,
+  SET_USER,
+  REMOVE_USER,
 } from './types'
+
+//USER ACTIONS
+export function getUser(user) {
+  return {
+    type: SET_USER,
+    payload: user,
+  }
+}
+
+export function removeUser() {
+  return {
+    type: REMOVE_USER,
+  }
+}
 
 //NOTE ACTIONS
 export function changeUsedNote(usedNote) {

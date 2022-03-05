@@ -2,9 +2,9 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSelectNote } from '../../redux/actions'
 
-const NavNoteItem = ({ noteId, noteHeader, noteContentCut, noteDate, noteSelected, noteContent, noteChange }) => {
+const NavNoteItem = ({ noteId, noteHeader, noteContentCut, noteDate, noteSelected, noteChange }) => {
   const dispatch = useDispatch()
-  const displayBttnFlag = useSelector((state) => state.appParams.displayBttnFlag)
+  const displayBttnFlag = useSelector((state) => state.app.appParams.displayBttnFlag)
 
   let classes = []
   if (displayBttnFlag) {

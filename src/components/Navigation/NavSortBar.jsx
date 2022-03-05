@@ -7,8 +7,8 @@ import SortBttnIcon from './SortBttnIcon'
 
 const NavSortBar = () => {
   const dispatch = useDispatch()
-  const sortModalFlag = useSelector((state) => state.appParams.sortModalFlag)
-  const sortType = useSelector((state) => state.appParams.sortType)
+  const sortModalFlag = useSelector((state) => state.app.appParams.sortModalFlag)
+  const sortType = useSelector((state) => state.app.appParams.sortType)
 
   let leftBttnStyle = ''
   if (sortModalFlag) leftBttnStyle = 'navigation__sort-button_onModal'
