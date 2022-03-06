@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changeUsedNote, closeNote, deleteNote, saveNote } from '../../redux/actions'
 
 const ContentNoteHeader = () => {
-  const dispatch = useDispatch()
-  const usedNote = useSelector((state) => state.note.usedNote)
-  const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
-  const usedId = useSelector((state) => state.note.usedNote.usedId)
+  const dispatch = useDispatch(),
+    usedNote = useSelector((state) => state.note.usedNote),
+    usedHeader = useSelector((state) => state.note.usedNote.usedHeader),
+    usedContent = useSelector((state) => state.note.usedNote.usedContent),
+    usedId = useSelector((state) => state.note.usedNote.usedId),
+    uid = useSelector((state) => state.user.uid)
 
   return (
     <div className="content__note-header">
@@ -24,7 +26,7 @@ const ContentNoteHeader = () => {
         <button
           className="selected-bar__bar-button"
           onClick={() => {
-            dispatch(deleteNote())
+            dispatch(deleteNote(uid, usedId))
           }}
         >
           <div style={{ width: '19px', height: '19px' }}>
@@ -36,7 +38,7 @@ const ContentNoteHeader = () => {
         <button
           className="selected-bar__bar-button selected-bar__bar-button_end"
           onClick={() => {
-            dispatch(saveNote())
+            dispatch(saveNote(uid, usedId, usedHeader, usedContent))
             dispatch(closeNote())
           }}
         >

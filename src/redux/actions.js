@@ -21,14 +21,13 @@ import {
   FETCH_NOTES,
 } from './types'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
-import { child, get, getDatabase, ref, update } from 'firebase/database'
+import { child, get, getDatabase, ref, remove, update } from 'firebase/database'
 
 //USER ACTIONS
 export function signInUser(email, password) {
   return async (dispatch) => {
     dispatch({ type: SHOW_AUTH_LOADER })
     const auth = getAuth()
-
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
@@ -58,10 +57,11 @@ export function signInUser(email, password) {
 export function signUpUser(email, password) {
   return async (dispatch) => {
     dispatch({ type: SHOW_AUTH_LOADER })
+
     const auth = getAuth()
+
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
+      .then(() => {
         dispatch({
           type: SIGNUP_USER,
         })
@@ -108,19 +108,67 @@ export function closeNote() {
   }
 }
 
-export function saveNote() {
-  return {
-    type: SAVE_NOTE,
+export function saveNote(uid, noteId, usedHeader, usedContent) {
+  return async (dispatch) => {
+    const noteChange = Date.now()
+    const db = getDatabase()
+
+    update(ref(db, `${uid}/notes/` + noteId), {
+      noteHeader: usedHeader,
+      noteContent: usedHeader,
+      noteChange,
+    })
+      .then(() => {
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Save note on server!' } })
+        dispatch({
+          type: SAVE_NOTE,
+          payload: {
+            noteId,
+            usedHeader,
+            usedContent,
+            noteChange,
+            syncServer: true,
+          },
+        })
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode)
+        console.log(errorMessage)
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({
+          type: SAVE_NOTE,
+          payload: {
+            noteId,
+            usedHeader,
+            usedContent,
+            noteChange,
+            syncServer: false,
+          },
+        })
+      })
   }
 }
 
-export function deleteNote() {
-  return {
-    type: DELETE_NOTE,
+export function deleteNote(uid, deleteId) {
+  return async (dispatch) => {
+    const db = getDatabase()
+    remove(ref(db, `${uid}/notes/` + deleteId))
+      .then(() => dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Delete note on server!' } }))
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode)
+        console.log(errorMessage)
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+      })
+
+    dispatch({ type: DELETE_NOTE })
   }
 }
 
-export function createNote(usedHeader, usedContent, uid) {
+export function createNote(uid, usedHeader, usedContent) {
   return async (dispatch) => {
     const noteId = Date.now()
     const noteDate = noteId
@@ -133,6 +181,7 @@ export function createNote(usedHeader, usedContent, uid) {
       noteContent: usedHeader,
       noteDate,
       noteChange,
+      noteSelected: false,
     })
       .then(() => {
         dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Create note on server!' } })
@@ -145,6 +194,7 @@ export function createNote(usedHeader, usedContent, uid) {
             noteDate,
             noteChange,
             syncServer: true,
+            noteSelected: false,
           },
         })
       })
@@ -163,6 +213,7 @@ export function createNote(usedHeader, usedContent, uid) {
             noteDate,
             noteChange,
             syncServer: false,
+            noteSelected: false,
           },
         })
       })

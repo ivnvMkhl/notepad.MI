@@ -30,7 +30,7 @@ export const initialApp = {
     {
       id: 1004,
       blockTitle: 'Account',
-      blockItems: ['Settings', 'Log out'],
+      blockItems: ['Settings', 'Log out', 'xyq'],
       blockOpen: false,
     },
   ],

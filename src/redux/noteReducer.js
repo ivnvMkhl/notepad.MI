@@ -51,10 +51,11 @@ export const noteReducer = (state = initialNote, action) => {
       return {
         ...state,
         notesList: state.notesList.map((note) => {
-          if (state.usedNote.usedId === note.noteId) {
-            state.usedNote.usedHeader.length > 0 ? (note.noteHeader = state.usedNote.usedHeader) : (note.noteHeader = 'Not set')
-            note.noteContent = state.usedNote.usedContent
-            note.noteChange = new Date(Date.now())
+          if (action.payload.noteId === note.noteId) {
+            action.payload.usedHeader.length > 0 ? (note.noteHeader = action.payload.usedHeader) : (note.noteHeader = 'Not set')
+            note.noteContent = action.payload.usedContent
+            note.noteChange = action.payload.noteChange
+            note.syncServer = action.payload.syncServer
           }
           return note
         }),

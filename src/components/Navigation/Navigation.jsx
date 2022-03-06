@@ -20,9 +20,9 @@ const Navigation = () => {
         className="navigation__crate-button"
         onClick={() => {
           if (usedId === -1) {
-            usedHeader ? dispatch(createNote(usedHeader, usedContent, uid)) : dispatch({ type: 'SHOW_ALERT' })
+            usedHeader ? dispatch(createNote(uid, usedHeader, usedContent)) : dispatch({ type: 'SHOW_ALERT' })
           } else {
-            dispatch(saveNote())
+            dispatch(saveNote(uid, usedId, usedHeader, usedContent))
             dispatch(closeNote())
           }
         }}
