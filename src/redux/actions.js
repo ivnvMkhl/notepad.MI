@@ -12,25 +12,82 @@ import {
   OFF_SORT_MODAL,
   INVERT_NOTES_SORT,
   ON_MENU_BLOCK,
-  SET_USER,
-  REMOVE_USER,
+  SHOW_AUTH_LOADER,
+  HIDE_AUTH_LOADER,
+  SHOW_ALERT_MESSAGE,
+  SIGNIN_USER,
+  SIGNUP_USER,
+  LOGOUT_USER,
+  FETCH_NOTES,
 } from './types'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import { child, get, getDatabase, ref, update } from 'firebase/database'
 
 //USER ACTIONS
-export function getUser(user) {
-  return {
-    type: SET_USER,
-    payload: user,
+export function signInUser(email, password) {
+  return async (dispatch) => {
+    dispatch({ type: SHOW_AUTH_LOADER })
+    const auth = getAuth()
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        dispatch({
+          type: SIGNIN_USER,
+          payload: user,
+        })
+        const dbRef = ref(getDatabase())
+        get(child(dbRef, `${user.uid}/notes`)).then((snapshot) => {
+          console.log(snapshot.val())
+          if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
+        })
+        dispatch({ type: HIDE_AUTH_LOADER })
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode)
+        console.log(errorMessage)
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: LOGOUT_USER })
+        dispatch({ type: HIDE_AUTH_LOADER })
+      })
   }
 }
 
-export function removeUser() {
+export function signUpUser(email, password) {
+  return async (dispatch) => {
+    dispatch({ type: SHOW_AUTH_LOADER })
+    const auth = getAuth()
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        dispatch({
+          type: SIGNUP_USER,
+        })
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Sing up completed successfilly!' } })
+        dispatch({ type: HIDE_AUTH_LOADER })
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode)
+        console.log(errorMessage)
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: LOGOUT_USER })
+        dispatch({ type: HIDE_AUTH_LOADER })
+      })
+  }
+}
+
+export function logoutUser() {
   return {
-    type: REMOVE_USER,
+    type: LOGOUT_USER,
   }
 }
 
 //NOTE ACTIONS
+
 export function changeUsedNote(usedNote) {
   return {
     type: CHANGE_USED_NOTE,
@@ -63,10 +120,52 @@ export function deleteNote() {
   }
 }
 
-export function createNote() {
-  return {
-    type: CREATE_NOTE,
-    payload: Date.now(),
+export function createNote(usedHeader, usedContent, uid) {
+  return async (dispatch) => {
+    const noteId = Date.now()
+    const noteDate = noteId
+    const noteChange = noteId
+    const db = getDatabase()
+
+    update(ref(db, `${uid}/notes/` + noteId), {
+      noteId,
+      noteHeader: usedHeader,
+      noteContent: usedHeader,
+      noteDate,
+      noteChange,
+    })
+      .then(() => {
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Create note on server!' } })
+        dispatch({
+          type: CREATE_NOTE,
+          payload: {
+            noteId,
+            usedHeader,
+            usedContent,
+            noteDate,
+            noteChange,
+            syncServer: true,
+          },
+        })
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode)
+        console.log(errorMessage)
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({
+          type: CREATE_NOTE,
+          payload: {
+            noteId,
+            usedHeader,
+            usedContent,
+            noteDate,
+            noteChange,
+            syncServer: false,
+          },
+        })
+      })
   }
 }
 

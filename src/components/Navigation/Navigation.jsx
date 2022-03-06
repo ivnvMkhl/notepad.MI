@@ -11,6 +11,8 @@ const Navigation = () => {
   const dispatch = useDispatch()
   const usedId = useSelector((state) => state.note.usedNote.usedId)
   const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
+  const usedContent = useSelector((state) => state.note.usedNote.usedContent)
+  const uid = useSelector((state) => state.user.uid)
 
   return (
     <nav className="navigation">
@@ -18,7 +20,7 @@ const Navigation = () => {
         className="navigation__crate-button"
         onClick={() => {
           if (usedId === -1) {
-            usedHeader ? dispatch(createNote()) : dispatch({ type: 'SHOW_ALERT' })
+            usedHeader ? dispatch(createNote(usedHeader, usedContent, uid)) : dispatch({ type: 'SHOW_ALERT' })
           } else {
             dispatch(saveNote())
             dispatch(closeNote())

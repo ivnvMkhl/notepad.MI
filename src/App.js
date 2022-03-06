@@ -5,12 +5,14 @@ import Main from './components/Main'
 import NotFound from './components/NotFound'
 import Login from './components/Login/Login'
 import SignUp from './components/Login/SignUp'
+import { useSelector } from 'react-redux'
 
 function App() {
+  const isAuth = useSelector((state) => state.user.isAuth)
+
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={isAuth ? <Main /> : <Login />} />
       <Route path="/registration" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

@@ -10,37 +10,37 @@ const ContentNoteContent = () => {
   const usedId = useSelector((state) => state.note.usedNote.usedId)
   const notesList = useSelector((state) => state.note.notesList)
 
-  let infoTime = '',
-    infoDate = '',
-    infoChangeTime = '',
-    infoChangeDate = '',
-    infoDateString = '',
-    infoChangeString = ''
-  notesList.map((note) => {
-    if (note.noteId === usedId) {
-      infoTime = `${note.noteDate.getHours() > 9 ? note.noteDate.getHours() : `0${note.noteDate.getHours()}`}:${
-        note.noteDate.getMinutes() > 9 ? note.noteDate.getMinutes() : `0${note.noteDate.getMinutes()}`
-      }`
-      infoDate = `${note.noteDate.getDate()}.${
-        note.noteDate.getMonth() + 1 > 9 ? note.noteDate.getMonth() + 1 : `0${note.noteDate.getMonth() + 1}`
-      }.${note.noteDate.getFullYear()}`
+  // let infoTime = '',
+  //   infoDate = '',
+  //   infoChangeTime = '',
+  //   infoChangeDate = '',
+  //   infoDateString = '',
+  //   infoChangeString = ''
+  // notesList.map((note) => {
+  //   if (note.noteId === usedId) {
+  //     infoTime = `${note.noteDate.getHours() > 9 ? note.noteDate.getHours() : `0${note.noteDate.getHours()}`}:${
+  //       note.noteDate.getMinutes() > 9 ? note.noteDate.getMinutes() : `0${note.noteDate.getMinutes()}`
+  //     }`
+  //     infoDate = `${note.noteDate.getDate()}.${
+  //       note.noteDate.getMonth() + 1 > 9 ? note.noteDate.getMonth() + 1 : `0${note.noteDate.getMonth() + 1}`
+  //     }.${note.noteDate.getFullYear()}`
 
-      infoChangeTime = `${note.noteChange.getHours() > 9 ? note.noteChange.getHours() : `0${note.noteChange.getHours()}`}:${
-        note.noteChange.getMinutes() > 9 ? note.noteChange.getMinutes() : `0${note.noteChange.getMinutes()}`
-      }`
-      infoChangeDate = `${note.noteChange.getDate()}.${
-        note.noteChange.getMonth() + 1 > 9 ? note.noteChange.getMonth() + 1 : `0${note.noteChange.getMonth() + 1}`
-      }.${note.noteChange.getFullYear()}`
-    }
-  })
+  //     infoChangeTime = `${note.noteChange.getHours() > 9 ? note.noteChange.getHours() : `0${note.noteChange.getHours()}`}:${
+  //       note.noteChange.getMinutes() > 9 ? note.noteChange.getMinutes() : `0${note.noteChange.getMinutes()}`
+  //     }`
+  //     infoChangeDate = `${note.noteChange.getDate()}.${
+  //       note.noteChange.getMonth() + 1 > 9 ? note.noteChange.getMonth() + 1 : `0${note.noteChange.getMonth() + 1}`
+  //     }.${note.noteChange.getFullYear()}`
+  //   }
+  // })
 
-  if (infoTime !== '' && infoDate !== '') {
-    infoDateString = `Create: ${infoTime} ${infoDate},`
-  } else infoDateString = ''
+  // if (infoTime !== '' && infoDate !== '') {
+  //   infoDateString = `Create: ${infoTime} ${infoDate},`
+  // } else infoDateString = ''
 
-  if (infoChangeTime !== infoTime || infoChangeDate !== infoDate) {
-    infoChangeString = `Change: ${infoChangeTime} ${infoChangeDate}`
-  } else infoChangeString = ''
+  // if (infoChangeTime !== infoTime || infoChangeDate !== infoDate) {
+  //   infoChangeString = `Change: ${infoChangeTime} ${infoChangeDate}`
+  // } else infoChangeString = ''
 
   return (
     <div className="content__note-content">
@@ -56,8 +56,8 @@ const ContentNoteContent = () => {
 
       <div className="content__note-info">
         Symbols: {areaLength}&nbsp;&nbsp;&nbsp;
-        {infoDateString}&nbsp;&nbsp;
-        {infoChangeString}&nbsp;&nbsp;
+        {/* {infoDateString}&nbsp;&nbsp;
+        {infoChangeString}&nbsp;&nbsp; */}
       </div>
     </div>
   )

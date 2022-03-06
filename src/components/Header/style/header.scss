@@ -23,6 +23,7 @@
 }
 .header__dd-block {
   display: flex;
+  align-items: center;
 }
 .header__dd-button {
   color: #28343a;
@@ -30,6 +31,8 @@
   border: 0;
   background: #fff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .header__dd-button:hover {
   background: rgb(207, 207, 207);
@@ -37,9 +40,11 @@
 .header__dd-button_select {
   background: rgb(207, 207, 207);
   color: #28343a;
-  padding: 0 10px;
+  padding: 1rem 10px;
   border: 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .header__dd-button:focus {
   outline: 0;

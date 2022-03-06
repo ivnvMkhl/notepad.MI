@@ -1,24 +1,26 @@
-import { SET_USER, REMOVE_USER } from './types'
+import { LOGOUT_USER, SIGNIN_USER, SIGNUP_USER } from './types'
 
 const initialUser = {
   email: null,
-  token: null,
-  id: null,
+  uid: null,
+  isAuth: false,
 }
 
 export const userReducer = (state = initialUser, action) => {
   switch (action.type) {
-    case SET_USER:
-      return {
-        email: action.paylod.email,
-        token: action.paylod.token,
-        id: action.paylod.id,
-      }
-    case REMOVE_USER:
+    case SIGNIN_USER:
+      return { ...action.payload, isAuth: true }
+    case SIGNUP_USER:
       return {
         email: null,
-        token: null,
-        id: null,
+        uid: null,
+        isAuth: false,
+      }
+    case LOGOUT_USER:
+      return {
+        email: null,
+        uid: null,
+        isAuth: false,
       }
     default:
       return state

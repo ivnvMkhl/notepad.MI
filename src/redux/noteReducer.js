@@ -1,10 +1,12 @@
-import { CHANGE_USED_NOTE, CLOSE_NOTE, CREATE_NOTE, DELETE_NOTE, GET_SELECT_NOTE, SAVE_NOTE } from './types'
+import { CHANGE_USED_NOTE, CLOSE_NOTE, CREATE_NOTE, DELETE_NOTE, FETCH_NOTES, GET_SELECT_NOTE, SAVE_NOTE } from './types'
 
 import { initialNote } from './initialNote'
 
 export const noteReducer = (state = initialNote, action) => {
   switch (action.type) {
     //NOTE REDUCERS
+    case FETCH_NOTES:
+      return { ...state, notesList: Object.values(action.payload) }
     case CHANGE_USED_NOTE:
       return { ...state, usedNote: action.payload }
     case GET_SELECT_NOTE:
@@ -72,12 +74,13 @@ export const noteReducer = (state = initialNote, action) => {
         ...state,
         notesList: state.notesList.concat([
           {
-            noteId: action.payload,
-            noteHeader: state.usedNote.usedHeader,
-            noteContent: state.usedNote.usedContent,
-            noteDate: new Date(action.payload),
-            noteChange: new Date(action.payload),
+            noteId: action.payload.noteId,
+            noteHeader: action.payload.usedHeader,
+            noteContent: action.payload.usedContent,
+            noteDate: action.payload.noteDate,
+            noteChange: action.payload.noteChange,
             noteSelected: true,
+            syncServer: action.payload.syncServer,
           },
         ]),
         usedNote: { ...state.usedNote, usedId: action.payload },
