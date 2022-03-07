@@ -1,11 +1,23 @@
 import { initialApp } from './initialApp'
-import { CHANGE_NOTES_SORT, GET_TEXT_LENGTH, INVERT_NOTES_SORT, OFF_SORT_MODAL, ON_MENU_BLOCK, ON_SORT_MODAL, SWITCH_DISPL_NOTES } from './types'
+import {
+  CHANGE_NOTES_SORT,
+  CHANGE_THEME,
+  INVERT_NOTES_SORT,
+  OFF_SORT_MODAL,
+  ON_MENU_BLOCK,
+  ON_SORT_MODAL,
+  SIGNUP_USER,
+  SWITCH_DISPL_NOTES,
+} from './types'
 
 export const appReducer = (state = initialApp, action) => {
   switch (action.type) {
     //APP REDUCERS
-    case GET_TEXT_LENGTH:
-      return { ...state, appParams: { ...state.appParams, areaLength: action.payload } }
+    case SIGNUP_USER:
+      return { ...state, appParams: { ...state.appParams, isRegisted: action.payload } }
+    case CHANGE_THEME:
+      return { ...state, appParams: { ...state.appParams, themeType: action.payload } }
+
     case CHANGE_NOTES_SORT:
       return {
         ...state,

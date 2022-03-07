@@ -4,7 +4,6 @@ import {
   CREATE_NOTE,
   DELETE_NOTE,
   GET_SELECT_NOTE,
-  GET_TEXT_LENGTH,
   SAVE_NOTE,
   CHANGE_NOTES_SORT,
   SWITCH_DISPL_NOTES,
@@ -19,6 +18,7 @@ import {
   SIGNUP_USER,
   LOGOUT_USER,
   FETCH_NOTES,
+  CHANGE_THEME,
 } from './types'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import { child, get, getDatabase, ref, remove, update } from 'firebase/database'
@@ -64,6 +64,7 @@ export function signUpUser(email, password) {
       .then(() => {
         dispatch({
           type: SIGNUP_USER,
+          payload: true,
         })
         dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Sing up completed successfilly!' } })
         dispatch({ type: HIDE_AUTH_LOADER })
@@ -74,7 +75,10 @@ export function signUpUser(email, password) {
         console.log(errorCode)
         console.log(errorMessage)
         dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
-        dispatch({ type: LOGOUT_USER })
+        dispatch({
+          type: SIGNUP_USER,
+          payload: false,
+        })
         dispatch({ type: HIDE_AUTH_LOADER })
       })
   }
@@ -221,10 +225,11 @@ export function createNote(uid, usedHeader, usedContent) {
 }
 
 //APP ACTIONS
-export function getTextLength(areaLength) {
+
+export function changeTheme(themeType) {
   return {
-    type: GET_TEXT_LENGTH,
-    payload: areaLength,
+    type: CHANGE_THEME,
+    payload: themeType,
   }
 }
 

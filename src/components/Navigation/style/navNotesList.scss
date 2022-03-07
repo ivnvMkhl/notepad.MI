@@ -1,7 +1,7 @@
 /* Note list Styles */
 .navigation__note-list {
   margin: 8px 0 0 0;
-  background: #f4f5f6;
+  background: var(--elem-basic);
   border-radius: 15px;
   display: flex;
   height: 100%;
@@ -20,7 +20,7 @@
 .navigation__not-notes {
   margin: 10px;
   font-weight: 800;
-  color: rgba(110, 110, 110, 0.5);
+  color: var(--text-dimmed);
 }
 .note-item {
   flex-shrink: 0;
@@ -32,7 +32,7 @@
   height: 5rem;
   border-radius: 12px;
   margin: 10px 0 0 0;
-  background: white;
+  background: var(--note-basic);
   display: grid;
   grid-template-areas:
     'A'
@@ -40,10 +40,10 @@
     'C';
 }
 .note-item:hover {
-  background-color: rgb(255, 214, 163);
+  background-color: var(--note-hover);
 }
 .note-item_select {
-  background-color: bisque;
+  background-color: var(--note-activ);
 }
 .note-item_small {
   height: 2rem;
@@ -58,7 +58,7 @@
 }
 
 .note-item__header {
-  color: rgba(40, 52, 58, 0.9);
+  color: var(--text-color);
   grid-area: A;
   font-size: 18px;
   margin: 10px 10px 0 10px;
@@ -66,13 +66,13 @@
   line-height: 1rem;
 }
 .note-item__cut-content {
-  color: rgba(40, 52, 58, 0.7);
+  color: var(--text-dimmed);
   grid-area: B;
   font-size: 14px;
   margin: 0 10px 0 10px;
 }
 .note-item__date {
-  color: rgba(110, 110, 110, 0.5);
+  color: var(--text-dimmed);
   grid-area: C;
   font-size: 11px;
   margin: 0 10px 0 10px;

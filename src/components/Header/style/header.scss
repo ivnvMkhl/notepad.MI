@@ -8,6 +8,7 @@
   width: 205px;
   display: flex;
   align-items: center;
+  margin-right: 3px;
 }
 .header__app-label {
   width: 20px;
@@ -15,7 +16,7 @@
   margin: 0 10px;
 }
 .header__logo svg {
-  fill: #28343a;
+  fill: var(--text-color);
 }
 .header__app-name {
   font-size: 24px;
@@ -26,20 +27,20 @@
   align-items: center;
 }
 .header__dd-button {
-  color: #28343a;
+  color: var(--text-color);
   padding: 0 10px;
   border: 0;
-  background: #fff;
+  background: var();
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 .header__dd-button:hover {
-  background: rgb(207, 207, 207);
+  background: var(--elem-hover);
 }
 .header__dd-button_select {
-  background: rgb(207, 207, 207);
-  color: #28343a;
+  background: var(--elem-hover);
+  color: var(--text-color);
   padding: 1rem 10px;
   border: 0;
   cursor: pointer;
@@ -48,10 +49,10 @@
 }
 .header__dd-button:focus {
   outline: 0;
-  background: rgb(207, 207, 207);
+  background: var(--elem-hover);
 }
 .header__modal-container {
-  background: rgb(207, 207, 207);
+  background: var(--elem-hover);
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -65,5 +66,5 @@
 }
 
 .header__dd-items:hover {
-  background: rgb(236, 236, 236);
+  background: var(--elem-activ);
 }

@@ -19,13 +19,15 @@ export const noteReducer = (state = initialNote, action) => {
               state.usedNote.usedId = note.noteId
               state.usedNote.usedHeader = note.noteHeader
               state.usedNote.usedContent = note.noteContent
-              state.appParams.areaLength = note.noteContent.length
+              state.usedNote.usedDate = new Date(note.noteDate)
+              state.usedNote.usedChange = new Date(note.noteChange)
             } else {
               note.noteSelected = false
               state.usedNote.usedId = -1
               state.usedNote.usedHeader = ''
               state.usedNote.usedContent = ''
-              state.appParams.areaLength = 0
+              state.usedNote.usedDate = null
+              state.usedNote.usedChange = null
             }
           } else {
             note.noteSelected = false
@@ -40,6 +42,8 @@ export const noteReducer = (state = initialNote, action) => {
           usedId: -1,
           usedHeader: '',
           usedContent: '',
+          usedDate: null,
+          usedChange: null,
         },
         notesList: state.notesList.map((note) => {
           if (note.noteSelected === true) note.noteSelected = false
@@ -84,7 +88,13 @@ export const noteReducer = (state = initialNote, action) => {
             syncServer: action.payload.syncServer,
           },
         ]),
-        usedNote: { ...state.usedNote, usedId: action.payload },
+        usedNote: {
+          usedId: action.payload.noteId,
+          usedHeader: action.payload.usedHeader,
+          usedContent: action.payload.usedContent,
+          usedDate: new Date(action.payload.noteDate),
+          usedChange: new Date(action.payload.noteChange),
+        },
       }
 
     default:

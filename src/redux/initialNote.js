@@ -32,6 +32,8 @@ export const initialNote = {
     usedId: -1,
     usedHeader: '',
     usedContent: '',
+    usedDate: null,
+    usedChange: null,
   },
 
   appParams: {

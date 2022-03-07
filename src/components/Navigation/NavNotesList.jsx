@@ -51,8 +51,8 @@ const NavNoteList = () => {
           noteContentCut={n.noteContent.length > 25 ? `${n.noteContent.slice(0, 18)}...` : n.noteContent}
           noteContent={n.noteContent}
           noteId={n.noteId}
-          noteDate={n.noteDate}
-          noteChange={n.noteChange}
+          noteDate={new Date(n.noteDate)}
+          noteChange={new Date(n.noteChange)}
           noteSelected={n.noteSelected}
           key={n.noteId}
         />
