@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { closeNote, createNote, saveNote } from '../../redux/actions'
 import './style/navigation.scss'
 import NavSortBar from './NavSortBar'
-import NavFind from './NavFind'
+
 import NavNotesList from './NavNotesList'
 import NavSortModal from './NavSortModal'
 
@@ -29,7 +29,7 @@ const Navigation = () => {
       >
         Create Note
       </button>
-      <NavFind />
+      {/* <NavFind /> */}
       <NavSortBar />
       <NavSortModal />
       <NavNotesList />

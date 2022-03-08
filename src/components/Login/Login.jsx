@@ -30,7 +30,7 @@ const Login = () => {
             dispatch(signInUser(email, pass))
           }}
         >
-          Sigin in
+          Sign in
         </button>
       </div>
       <div className="login__footer">

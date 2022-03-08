@@ -34,7 +34,7 @@ const SignUp = () => {
             if (isRegisted) navigate('/')
           }}
         >
-          Sigin up
+          Sign up
         </button>
       </div>
       <div className="login__footer">

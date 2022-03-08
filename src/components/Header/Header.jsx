@@ -16,9 +16,11 @@ const Header = () => {
         </div>
         <h1 className="header__app-name">notepad.MI</h1>
       </div>
-      {menuTree.map((item) => (
-        <HeaderMenuBlock name={item.blockTitle} items={item.blockItems} key={item.id} isOpen={item.blockOpen} />
-      ))}
+      <div className="header__menu">
+        {menuTree.map((item) => (
+          <HeaderMenuBlock name={item.blockTitle} items={item.blockItems} key={item.id} isOpen={item.blockOpen} />
+        ))}
+      </div>
     </header>
   )
 }

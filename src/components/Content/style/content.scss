@@ -12,7 +12,7 @@
 }
 .content__header-input {
   background: var(--elem-basic);
-  font-size: 1.5rem;
+  font-size: var(--xlarge-fsize);
   font-weight: 600;
   width: 100%;
   line-height: 3rem;
@@ -94,6 +94,6 @@
   display: flex;
   align-items: center;
   padding: 0 0 0 5px;
-  font-size: 12px;
+  font-size: var(--small-fsize);
   font-weight: 600;
 }

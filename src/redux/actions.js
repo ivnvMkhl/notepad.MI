@@ -11,23 +11,24 @@ import {
   OFF_SORT_MODAL,
   INVERT_NOTES_SORT,
   ON_MENU_BLOCK,
-  SHOW_AUTH_LOADER,
-  HIDE_AUTH_LOADER,
   SHOW_ALERT_MESSAGE,
   SIGNIN_USER,
   SIGNUP_USER,
   LOGOUT_USER,
   FETCH_NOTES,
   CHANGE_THEME,
+  HIDE_AUTH_LOADER,
+  SHOW_AUTH_LOADER,
+  REAUTH_CHECK,
 } from './types'
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 import { child, get, getDatabase, ref, remove, update } from 'firebase/database'
 
 //USER ACTIONS
 export function signInUser(email, password) {
   return async (dispatch) => {
-    dispatch({ type: SHOW_AUTH_LOADER })
     const auth = getAuth()
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
@@ -35,12 +36,12 @@ export function signInUser(email, password) {
           type: SIGNIN_USER,
           payload: user,
         })
+
         const dbRef = ref(getDatabase())
         get(child(dbRef, `${user.uid}/notes`)).then((snapshot) => {
           console.log(snapshot.val())
           if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
         })
-        dispatch({ type: HIDE_AUTH_LOADER })
       })
       .catch((error) => {
         const errorCode = error.code
@@ -48,16 +49,12 @@ export function signInUser(email, password) {
         console.log(errorCode)
         console.log(errorMessage)
         dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
-        dispatch({ type: LOGOUT_USER })
-        dispatch({ type: HIDE_AUTH_LOADER })
       })
   }
 }
 
 export function signUpUser(email, password) {
   return async (dispatch) => {
-    dispatch({ type: SHOW_AUTH_LOADER })
-
     const auth = getAuth()
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -67,7 +64,6 @@ export function signUpUser(email, password) {
           payload: true,
         })
         dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Sing up completed successfilly!' } })
-        dispatch({ type: HIDE_AUTH_LOADER })
       })
       .catch((error) => {
         const errorCode = error.code
@@ -79,18 +75,38 @@ export function signUpUser(email, password) {
           type: SIGNUP_USER,
           payload: false,
         })
-        dispatch({ type: HIDE_AUTH_LOADER })
       })
   }
 }
 
 export function logoutUser() {
-  return {
-    type: LOGOUT_USER,
+  return async (dispatch) => {
+    const auth = getAuth()
+    signOut(auth)
+      .then(() => {
+        dispatch({ type: LOGOUT_USER })
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode)
+        console.log(errorMessage)
+        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+      })
   }
 }
 
 //NOTE ACTIONS
+
+export function fetchNotes(user) {
+  return async (dispatch) => {
+    const dbRef = ref(getDatabase())
+    get(child(dbRef, `${user.uid}/notes`)).then((snapshot) => {
+      console.log(snapshot.val())
+      if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
+    })
+  }
+}
 
 export function changeUsedNote(usedNote) {
   return {
@@ -225,6 +241,24 @@ export function createNote(uid, usedHeader, usedContent) {
 }
 
 //APP ACTIONS
+
+export function reAuthCheck() {
+  return {
+    type: REAUTH_CHECK,
+  }
+}
+
+export function hideAuthLoader() {
+  return {
+    type: HIDE_AUTH_LOADER,
+  }
+}
+
+export function showAuthLoader() {
+  return {
+    type: SHOW_AUTH_LOADER,
+  }
+}
 
 export function changeTheme(themeType) {
   return {

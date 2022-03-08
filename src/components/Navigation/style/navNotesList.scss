@@ -52,7 +52,7 @@
   display: none;
 }
 .note-item_small > div {
-  font-size: 14px;
+  font-size: var(--mid-fsize);
   margin: 7px 10px 0 10px;
   font-weight: 600;
 }
@@ -60,7 +60,7 @@
 .note-item__header {
   color: var(--text-color);
   grid-area: A;
-  font-size: 18px;
+  font-size: var(--large-fsize);
   margin: 10px 10px 0 10px;
   font-weight: 600;
   line-height: 1rem;
@@ -68,12 +68,12 @@
 .note-item__cut-content {
   color: var(--text-dimmed);
   grid-area: B;
-  font-size: 14px;
+  font-size: var(--mid-fsize);
   margin: 0 10px 0 10px;
 }
 .note-item__date {
   color: var(--text-dimmed);
   grid-area: C;
-  font-size: 11px;
+  font-size: var(--small-fsize);
   margin: 0 10px 0 10px;
 }

@@ -22,6 +22,7 @@ export const userReducer = (state = initialUser, action) => {
         uid: null,
         isAuth: false,
       }
+
     default:
       return state
   }

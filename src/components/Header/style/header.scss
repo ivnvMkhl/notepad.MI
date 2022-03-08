@@ -22,12 +22,16 @@
   font-size: 24px;
   font-weight: 500;
 }
+.header__menu {
+  display: flex;
+}
 .header__dd-block {
   display: flex;
   align-items: center;
 }
 .header__dd-button {
   color: var(--text-color);
+  font-size: var(--basic-fsize);
   padding: 0 10px;
   border: 0;
   background: var();
@@ -61,7 +65,7 @@
 }
 .header__dd-items {
   padding: 0.5rem 4rem 0.5rem 0.5rem;
-  font-size: 14px;
+  font-size: var(--mid-fsize);
   cursor: pointer;
 }
 

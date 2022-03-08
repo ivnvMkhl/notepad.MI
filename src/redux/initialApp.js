@@ -7,19 +7,21 @@ export const initialApp = {
     headerMenuOpen: false,
     themeType: 'light',
     isRegisted: false,
+    authLoader: true,
+    reAuthFlag: true,
   },
 
   menuTree: [
     {
       id: 1001,
       blockTitle: 'Note',
-      blockItems: ['Create', 'Save', 'Save to file', 'Delete', 'Close'],
+      blockItems: ['Create', 'Save', 'Delete', 'Close'],
       blockOpen: false,
     },
     {
       id: 1002,
-      blockTitle: 'Edit',
-      blockItems: ['Undo', 'Rendo', 'Cut', 'Copy', 'Paste', 'Find'],
+      blockTitle: 'Sort',
+      blockItems: ['Update', 'Date', 'Size', 'ABC'],
       blockOpen: false,
     },
     {
