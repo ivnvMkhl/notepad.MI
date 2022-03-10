@@ -1,0 +1,141 @@
+.wrapper {
+  display: grid;
+  height: 100vh;
+  width: 1440px;
+  grid-template-areas:
+    'A A'
+    'B C'
+    'B C';
+  grid-template-rows: 40px 1fr;
+  grid-template-columns: 200px 1fr;
+  row-gap: 0;
+  column-gap: 8px;
+}
+
+.login__wrapper {
+  display: grid;
+  height: 100vh;
+  width: 500px;
+  grid-template-rows: 1fr 200px 1fr;
+}
+.login__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0 0 2rem 0;
+}
+.login__logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 2rem 0;
+}
+.login__app-label {
+  width: 30px;
+  height: 30px;
+  margin: 0 15px 0 0;
+}
+.login__app-label svg {
+  fill: var(--text-color);
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+.form__input {
+  width: 100%;
+  height: 3rem;
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 0;
+  background-color: var(--elem-basic);
+}
+.form__input:hovers {
+  background: var(--note-hover);
+}
+.form__input:focus {
+  background: var(--note-hover);
+}
+.form__input:active {
+  background: var(--note-hover);
+}
+.form__button {
+  color: var(--text-color);
+  height: 3rem;
+  border-radius: 15px;
+  border: 1px solid var(--bttns-border);
+  background: var(--elem-basic);
+  font-size: 16px;
+  font-weight: 800;
+  width: 200px;
+}
+.form__button:hover {
+  background: var(--elem-hover);
+}
+.login__footer {
+  margin: 2rem 0 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Media */
+@media (max-width: 1440px) {
+  .wrapper {
+    width: calc(100vw - 50px);
+  }
+}
+
+@media (max-width: 500px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .header {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+  .header__logo {
+    width: auto !important;
+  }
+  .header__modal-container {
+    top: 99px !important;
+  }
+  .navigation__crate-button {
+    display: none !important;
+  }
+  .navigation__sort-bar {
+    display: none !important;
+  }
+  .navigation__note-list {
+    flex-direction: row !important;
+    margin-bottom: 20px !important;
+  }
+  .note-item {
+    margin-left: 10px !important;
+  }
+  .content__note-content {
+    display: flex;
+    height: 54vh;
+  }
+  .content__note-info {
+    font-size: 9px !important;
+  }
+  .login__wrapper {
+    width: 350px;
+  }
+  .header__dd-items {
+    padding: 1rem 4rem 1rem 0.5rem !important;
+  }
+  .navigation__create-note {
+    display: block !important;
+  }
+  .note-item {
+    width: 170px !important;
+  }
+}

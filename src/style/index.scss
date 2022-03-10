@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --bg-color: #fff;
+  --text-color: #28343a;
+  --text-dimmed: rgba(40, 52, 58, 0.5);
+  --bttns-border: rgba(40, 52, 58, 0.3);
+  --elem-basic: #f4f5f6;
+  --elem-hover: #e0e0e0;
+  --elem-activ: #b1b1b1;
+  --note-basic: #fff;
+  --note-activ: #ffd6a3;
+  --note-hover: #ffe4c4;
+  --small-fsize: 12px;
+  --mid-fsize: 14px;
+  --basic-fsize: 16px;
+  --large-fsize: 18px;
+  --xlarge-fsize: 18px;
+  --basic-round: 15px;
+
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  justify-content: center;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  resize: none;
+  margin: 0;
+}
