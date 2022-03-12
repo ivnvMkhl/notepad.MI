@@ -9,6 +9,7 @@ import Login from './components/Login/Login'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { fetchNotes, hideAuthLoader, reAuthCheck } from './redux/actions'
 import { SIGNIN_USER } from './redux/types'
+import Loader from './components/Loader'
 
 function App() {
   const auth = getAuth()
@@ -38,7 +39,20 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={authLoader ? <div>loading...</div> : isAuth ? <Main /> : <Login />} />
+      <Route
+        path="/"
+        element={
+          authLoader ? (
+            <div className="start__preloader">
+              <Loader />
+            </div>
+          ) : isAuth ? (
+            <Main />
+          ) : (
+            <Login />
+          )
+        }
+      />
       <Route path="/registration" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

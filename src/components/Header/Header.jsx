@@ -1,10 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import Alert from '../Alert'
 import HeaderMenuBlock from './HeaderMenuBlock'
 import './style/header.scss'
 
 const Header = () => {
   const menuTree = useSelector((state) => state.app.menuTree)
+
+  const showAlert = useSelector((state) => state.app.appParams.showAlert)
+
+  let alertElem
+  showAlert ? (alertElem = <Alert />) : (alertElem = <div></div>)
 
   return (
     <header className="header">
@@ -21,6 +27,7 @@ const Header = () => {
           <HeaderMenuBlock name={item.blockTitle} items={item.blockItems} key={item.id} isOpen={item.blockOpen} />
         ))}
       </div>
+      <div className="alert__align">{alertElem}</div>
     </header>
   )
 }

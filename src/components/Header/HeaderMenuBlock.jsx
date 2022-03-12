@@ -17,12 +17,17 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
   const dispatch = useDispatch()
   const headerMenuOpen = useSelector((state) => state.app.appParams.headerMenuOpen)
   const usedId = useSelector((state) => state.note.usedNote.usedId)
+  const notesList = useSelector((state) => state.note.notesList)
   const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
   const usedContent = useSelector((state) => state.note.usedNote.usedContent)
   const theme = useSelector((state) => state.app.theme)
   const uid = useSelector((state) => state.user.uid)
   const sortType = useSelector((state) => state.app.appParams.sortType)
   const invertSortFlag = useSelector((state) => state.app.appParams.invertSortFlag)
+  const email = useSelector((state) => state.user.email)
+
+  let blockName
+  name === 'Account' ? (blockName = email.substring(0, email.indexOf('@'))) : (blockName = name)
 
   if (isOpen) {
     return (
@@ -33,7 +38,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
             dispatch(onMenuBlock(name))
           }}
         >
-          {name}
+          {blockName}
         </div>
         <div className="header__modal-container">
           {items.map((item) => (
@@ -42,12 +47,12 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
               key={item}
               onClick={() => {
                 //Select action to click header menu
-                if (item === 'Save') dispatch(saveNote(uid, usedId, usedHeader, usedContent))
+                if (item === 'Save') dispatch(saveNote(uid, usedId, usedHeader, usedContent, notesList))
                 else if (item === 'Create') {
                   if (usedId === -1) {
                     usedHeader ? dispatch(createNote(uid, usedHeader, usedContent)) : dispatch({ type: 'SHOW_ALERT' })
                   } else {
-                    dispatch(saveNote(uid, usedId, usedHeader, usedContent))
+                    dispatch(saveNote(uid, usedId, usedHeader, usedContent, notesList))
                     dispatch(closeNote())
                   }
                 } else if (item === 'Close') dispatch(closeNote())
@@ -118,7 +123,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
           if (headerMenuOpen) dispatch(onMenuBlock(name))
         }}
       >
-        {name}
+        {blockName}
       </div>
     )
 }

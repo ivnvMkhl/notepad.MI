@@ -11,7 +11,8 @@ import {
   OFF_SORT_MODAL,
   INVERT_NOTES_SORT,
   ON_MENU_BLOCK,
-  SHOW_ALERT_MESSAGE,
+  SHOW_ALERT,
+  HIDE_ALERT,
   SIGNIN_USER,
   SIGNUP_USER,
   LOGOUT_USER,
@@ -21,6 +22,7 @@ import {
   SHOW_AUTH_LOADER,
   REAUTH_CHECK,
   DELETE_ALL_NOTES,
+  START_FETCH_NOTES_COMPLETED,
 } from './types'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 import { child, get, getDatabase, ref, remove, update } from 'firebase/database'
@@ -43,13 +45,18 @@ export function signInUser(email, password) {
           console.log(snapshot.val())
           if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
         })
+
+        dispatch({ type: START_FETCH_NOTES_COMPLETED })
       })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
         console.log(errorCode)
         console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
       })
   }
 }
@@ -64,14 +71,20 @@ export function signUpUser(email, password) {
           type: SIGNUP_USER,
           payload: true,
         })
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Sing up completed successfilly!' } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Sing up completed successfilly!' } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
       })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
         console.log(errorCode)
         console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
         dispatch({
           type: SIGNUP_USER,
           payload: false,
@@ -92,7 +105,10 @@ export function logoutUser() {
         const errorMessage = error.message
         console.log(errorCode)
         console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
       })
   }
 }
@@ -105,6 +121,7 @@ export function fetchNotes(user) {
     get(child(dbRef, `${user.uid}/notes`)).then((snapshot) => {
       console.log(snapshot.val())
       if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
+      dispatch({ type: START_FETCH_NOTES_COMPLETED })
     })
   }
 }
@@ -129,47 +146,59 @@ export function closeNote() {
   }
 }
 
-export function saveNote(uid, noteId, usedHeader, usedContent) {
+export function saveNote(uid, noteId, usedHeader, usedContent, notesList) {
   return async (dispatch) => {
     if (noteId > 0) {
       const noteChange = Date.now()
       const db = getDatabase()
 
-      update(ref(db, `${uid}/notes/` + noteId), {
-        noteHeader: usedHeader,
-        noteContent: usedContent,
-        noteChange,
+      notesList.forEach((note) => {
+        if (note.noteId === noteId) {
+          if (note.noteContent !== usedContent || note.noteHeader !== usedHeader) {
+            update(ref(db, `${uid}/notes/` + noteId), {
+              noteHeader: usedHeader,
+              noteContent: usedContent,
+              noteChange,
+            })
+              .then(() => {
+                dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Save note on server!' } })
+                setTimeout(() => {
+                  dispatch({ type: HIDE_ALERT })
+                }, 3000)
+                dispatch({
+                  type: SAVE_NOTE,
+                  payload: {
+                    noteId,
+                    usedHeader,
+                    usedContent,
+                    noteChange,
+                    syncServer: true,
+                  },
+                })
+              })
+              .catch((error) => {
+                const errorCode = error.code
+                const errorMessage = error.message
+                console.log(errorCode)
+                console.log(errorMessage)
+                dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+                setTimeout(() => {
+                  dispatch({ type: HIDE_ALERT })
+                }, 3000)
+                dispatch({
+                  type: SAVE_NOTE,
+                  payload: {
+                    noteId,
+                    usedHeader,
+                    usedContent,
+                    noteChange,
+                    syncServer: false,
+                  },
+                })
+              })
+          }
+        }
       })
-        .then(() => {
-          dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Save note on server!' } })
-          dispatch({
-            type: SAVE_NOTE,
-            payload: {
-              noteId,
-              usedHeader,
-              usedContent,
-              noteChange,
-              syncServer: true,
-            },
-          })
-        })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          console.log(errorCode)
-          console.log(errorMessage)
-          dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
-          dispatch({
-            type: SAVE_NOTE,
-            payload: {
-              noteId,
-              usedHeader,
-              usedContent,
-              noteChange,
-              syncServer: false,
-            },
-          })
-        })
     }
   }
 }
@@ -178,13 +207,21 @@ export function deleteNote(uid, deleteId) {
   return async (dispatch) => {
     const db = getDatabase()
     remove(ref(db, `${uid}/notes/` + deleteId))
-      .then(() => dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Delete note on server!' } }))
+      .then(() => {
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Delete note on server!' } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
+      })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
         console.log(errorCode)
         console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
       })
 
     dispatch({ type: DELETE_NOTE, payload: deleteId })
@@ -195,13 +232,21 @@ export function deleteAllNotes(uid) {
   return async (dispatch) => {
     const db = getDatabase()
     remove(ref(db, `${uid}/notes/`))
-      .then(() => dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Delete all notes on server!' } }))
+      .then(() => {
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Delete all notes on server!' } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
+      })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
         console.log(errorCode)
         console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
       })
 
     dispatch({ type: DELETE_ALL_NOTES })
@@ -224,7 +269,10 @@ export function createNote(uid, usedHeader, usedContent) {
       noteSelected: false,
     })
       .then(() => {
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'info', AlertText: 'Create note on server!' } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Create note on server!' } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
         dispatch({
           type: CREATE_NOTE,
           payload: {
@@ -243,7 +291,10 @@ export function createNote(uid, usedHeader, usedContent) {
         const errorMessage = error.message
         console.log(errorCode)
         console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT_MESSAGE, payload: { alertType: 'error', AlertText: errorMessage } })
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+        setTimeout(() => {
+          dispatch({ type: HIDE_ALERT })
+        }, 3000)
         dispatch({
           type: CREATE_NOTE,
           payload: {

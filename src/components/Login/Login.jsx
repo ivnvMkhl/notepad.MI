@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signInUser } from '../../redux/actions'
+import Alert from '../Alert'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const dispatch = useDispatch()
+  const showAlert = useSelector((state) => state.app.appParams.showAlert)
+
+  let alertElem
+  showAlert ? (alertElem = <Alert />) : (alertElem = <div></div>)
 
   return (
     <div className="login__wrapper">
+      <div className="form__alert">{alertElem}</div>
       <div className="login__header">
         <div className="login__logo">
           <div className="login__app-label">
@@ -19,8 +25,10 @@ const Login = () => {
           </div>
           <h1>notepad.MI</h1>
         </div>
+
         <h3>Login to your account</h3>
       </div>
+
       <div className="login__form">
         <input className="form__input" type="email" value={email} placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
         <input className="form__input" type="password" value={pass} placeholder="Password" onChange={(e) => setPass(e.target.value)} />

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { closeNote, createNote, saveNote } from '../../redux/actions'
+import Loader from '../Loader'
 import NavNoteItem from './NavNoteItem'
 import './style/navNotesList.scss'
 
@@ -7,11 +8,15 @@ const NavNoteList = () => {
   const notesList = useSelector((state) => state.note.notesList)
   const sortType = useSelector((state) => state.app.appParams.sortType)
   const invertSortFlag = useSelector((state) => state.app.appParams.invertSortFlag)
+  const startFetchNotes = useSelector((state) => state.app.appParams.startFetchNotes)
   const dispatch = useDispatch()
   const usedId = useSelector((state) => state.note.usedNote.usedId)
   const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
   const usedContent = useSelector((state) => state.note.usedNote.usedContent)
   const uid = useSelector((state) => state.user.uid)
+
+  let noNotes
+  startFetchNotes ? (noNotes = <Loader />) : (noNotes = <p className="navigation__not-notes">No notes</p>)
 
   if (!notesList.length) {
     return (
@@ -39,7 +44,7 @@ const NavNoteList = () => {
             </svg>
           </div>
         </button>
-        <p className="navigation__not-notes">No notes</p>
+        {noNotes}
       </div>
     )
   }

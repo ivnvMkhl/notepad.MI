@@ -5,6 +5,7 @@ import { initialNote } from './initialNote'
 export const noteReducer = (state = initialNote, action) => {
   switch (action.type) {
     //NOTE REDUCERS
+
     case FETCH_NOTES:
       return { ...state, notesList: Object.values(action.payload) }
     case CHANGE_USED_NOTE:

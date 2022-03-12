@@ -5,10 +5,10 @@ import ContentNoteHeader from './ContentNoteHeader'
 
 const Content = () => {
   return (
-    <header className="content">
+    <div className="content">
       <ContentNoteHeader />
       <ContentNoteContent />
-    </header>
+    </div>
   )
 }
 

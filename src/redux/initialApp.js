@@ -9,6 +9,13 @@ export const initialApp = {
     isRegisted: false,
     authLoader: true,
     reAuthFlag: true,
+    startFetchNotes: true,
+    showAlert: false,
+  },
+
+  alert: {
+    alertType: 'err',
+    alertText: 'Create note complete!',
   },
 
   menuTree: [
@@ -51,8 +58,25 @@ export const initialApp = {
       '--note-basic',
       '--note-activ',
       '--note-hover',
+      '--alert-compl',
+      '--alert-warn',
+      '--alert-err',
     ],
-    light: ['#ffffff', '#28343a', 'rgba(40, 52, 58, 0.5)', 'rgba(40, 52, 58, 0.3)', '#f4f5f6', '#e0e0e0', '#b1b1b1', '#ffffff', '#ffd6a3', '#ffe4c4'],
+    light: [
+      '#ffffff',
+      '#28343a',
+      'rgba(40, 52, 58, 0.5)',
+      'rgba(40, 52, 58, 0.3)',
+      '#f4f5f6',
+      '#e0e0e0',
+      '#b1b1b1',
+      '#ffffff',
+      '#ffd6a3',
+      '#ffe4c4',
+      '#bdebb5',
+      '#eaebb5',
+      '#eec7c7',
+    ],
     dark: [
       '#232f34',
       '#edf0f1',
@@ -64,6 +88,9 @@ export const initialApp = {
       '#414d55',
       '#a68a6f',
       '#d09257',
+      '#6D9666',
+      '#A8A447',
+      '#966666',
     ],
   },
 }

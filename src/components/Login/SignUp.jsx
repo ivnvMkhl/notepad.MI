@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { signUpUser } from '../../redux/actions'
+import Alert from '../Alert'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
@@ -10,9 +11,14 @@ const SignUp = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isRegisted = useSelector((state) => state.app.appParams.isRegisted)
+  const showAlert = useSelector((state) => state.app.appParams.showAlert)
+
+  let alertElem
+  showAlert ? (alertElem = <Alert />) : (alertElem = <div></div>)
 
   return (
     <div className="login__wrapper">
+      <div className="form__alert">{alertElem}</div>
       <div className="login__header">
         <div className="login__logo">
           <div className="login__app-label">
