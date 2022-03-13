@@ -5,6 +5,7 @@ import {
   HIDE_ALERT,
   HIDE_AUTH_LOADER,
   INVERT_NOTES_SORT,
+  OFF_MENU_BLOCK,
   OFF_SORT_MODAL,
   ON_MENU_BLOCK,
   ON_SORT_MODAL,
@@ -39,8 +40,8 @@ export const appReducer = (state = initialApp, action) => {
       return { ...state, appParams: { ...state.appParams, authLoader: false } }
     case SHOW_AUTH_LOADER:
       return { ...state, appParams: { ...state.appParams, authLoader: true } }
-    case SIGNUP_USER:
-      return { ...state, appParams: { ...state.appParams, isRegisted: action.payload } }
+    // case SIGNUP_USER:
+    //   return { ...state, appParams: { ...state.appParams, isRegisted: action.payload } }
     case CHANGE_THEME:
       return { ...state, appParams: { ...state.appParams, themeType: action.payload } }
 
@@ -73,6 +74,15 @@ export const appReducer = (state = initialApp, action) => {
               state.appParams.headerMenuOpen = false
             }
           } else item.blockOpen = false
+          return item
+        }),
+      }
+    case OFF_MENU_BLOCK:
+      return {
+        ...state,
+        menuTree: state.menuTree.map((item) => {
+          item.blockOpen = false
+          state.appParams.headerMenuOpen = false
           return item
         }),
       }

@@ -1,3 +1,11 @@
+.body-wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .wrapper {
   display: grid;
   height: 100vh;
@@ -35,7 +43,6 @@
 }
 .form__alert {
   padding: 0 2rem;
-
   position: fixed;
   top: 100px;
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { closeNote, createNote, saveNote } from '../../redux/actions'
+import { closeNote, createNote, saveNote, showAlert } from '../../redux/actions'
 import './style/navigation.scss'
 import NavSortBar from './NavSortBar'
 
@@ -20,10 +20,16 @@ const Navigation = () => {
         className="navigation__crate-button"
         onClick={() => {
           if (usedId === -1) {
-            usedHeader ? dispatch(createNote(uid, usedHeader, usedContent)) : dispatch({ type: 'SHOW_ALERT' })
+            if (usedContent.trim() === '') {
+              document.querySelector('.content__note-area').focus()
+              dispatch(showAlert('warn', 'Enter note content...'))
+            } else {
+              dispatch(createNote(uid, usedHeader, usedContent))
+            }
           } else {
             dispatch(saveNote(uid, usedId, usedHeader, usedContent))
             dispatch(closeNote())
+            document.querySelector('.content__note-area').focus()
           }
         }}
       >

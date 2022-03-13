@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { closeNote, createNote, saveNote } from '../../redux/actions'
+import { closeNote, createNote, saveNote, showAlert } from '../../redux/actions'
 import Loader from '../Loader'
 import NavNoteItem from './NavNoteItem'
 import './style/navNotesList.scss'
@@ -25,16 +25,16 @@ const NavNoteList = () => {
           className="navigation__create-note"
           onClick={() => {
             if (usedId === -1) {
-              if (usedHeader === '') {
-                dispatch(closeNote())
+              if (usedContent.trim() === '') {
+                document.querySelector('.content__note-area').focus()
+                dispatch(showAlert('warn', 'Enter note content...'))
               } else {
                 dispatch(createNote(uid, usedHeader, usedContent))
-                dispatch(saveNote(uid, usedId, usedHeader, usedContent))
-                dispatch(closeNote())
               }
             } else {
               dispatch(saveNote(uid, usedId, usedHeader, usedContent))
               dispatch(closeNote())
+              document.querySelector('.content__note-area').focus()
             }
           }}
         >
@@ -83,16 +83,15 @@ const NavNoteList = () => {
         className="navigation__create-note"
         onClick={() => {
           if (usedId === -1) {
-            if (usedHeader === '') {
-              dispatch(closeNote())
+            if (usedContent.trim() === '') {
+              document.querySelector('.content__note-area').focus()
             } else {
               dispatch(createNote(uid, usedHeader, usedContent))
-              dispatch(saveNote(uid, usedId, usedHeader, usedContent))
-              dispatch(closeNote())
             }
           } else {
             dispatch(saveNote(uid, usedId, usedHeader, usedContent))
             dispatch(closeNote())
+            document.querySelector('.content__note-area').focus()
           }
         }}
       >

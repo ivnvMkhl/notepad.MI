@@ -23,6 +23,7 @@ import {
   REAUTH_CHECK,
   DELETE_ALL_NOTES,
   START_FETCH_NOTES_COMPLETED,
+  OFF_MENU_BLOCK,
 } from './types'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 import { child, get, getDatabase, ref, remove, update } from 'firebase/database'
@@ -66,11 +67,14 @@ export function signUpUser(email, password) {
     const auth = getAuth()
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredential) => {
+        const user = userCredential.user
         dispatch({
           type: SIGNUP_USER,
-          payload: true,
+          payload: user,
         })
+
+        dispatch({ type: START_FETCH_NOTES_COMPLETED })
         dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Sing up completed successfilly!' } })
         setTimeout(() => {
           dispatch({ type: HIDE_ALERT })
@@ -85,10 +89,6 @@ export function signUpUser(email, password) {
         setTimeout(() => {
           dispatch({ type: HIDE_ALERT })
         }, 3000)
-        dispatch({
-          type: SIGNUP_USER,
-          payload: false,
-        })
       })
   }
 }
@@ -119,7 +119,6 @@ export function fetchNotes(user) {
   return async (dispatch) => {
     const dbRef = ref(getDatabase())
     get(child(dbRef, `${user.uid}/notes`)).then((snapshot) => {
-      console.log(snapshot.val())
       if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
       dispatch({ type: START_FETCH_NOTES_COMPLETED })
     })
@@ -151,6 +150,8 @@ export function saveNote(uid, noteId, usedHeader, usedContent, notesList) {
     if (noteId > 0) {
       const noteChange = Date.now()
       const db = getDatabase()
+
+      if (usedHeader.trim() === '') usedHeader = usedContent.substring(0, 40)
 
       notesList.forEach((note) => {
         if (note.noteId === noteId) {
@@ -260,6 +261,8 @@ export function createNote(uid, usedHeader, usedContent) {
     const noteChange = noteId
     const db = getDatabase()
 
+    if (usedHeader.trim() === '') usedHeader = usedContent.substring(0, 40)
+
     update(ref(db, `${uid}/notes/` + noteId), {
       noteId,
       noteHeader: usedHeader,
@@ -312,6 +315,15 @@ export function createNote(uid, usedHeader, usedContent) {
 }
 
 //APP ACTIONS
+
+export function showAlert(type, text) {
+  return async (dispatch) => {
+    dispatch({ type: SHOW_ALERT, payload: { alertType: type, alertText: text } })
+    setTimeout(() => {
+      dispatch({ type: HIDE_ALERT })
+    }, 3000)
+  }
+}
 
 export function reAuthCheck() {
   return {
@@ -373,5 +385,10 @@ export function onMenuBlock(title) {
   return {
     type: ON_MENU_BLOCK,
     payload: title,
+  }
+}
+export function offMenuBlock() {
+  return {
+    type: OFF_MENU_BLOCK,
   }
 }

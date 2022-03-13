@@ -14,8 +14,8 @@ export const initialApp = {
   },
 
   alert: {
-    alertType: 'err',
-    alertText: 'Create note complete!',
+    alertType: '',
+    alertText: '',
   },
 
   menuTree: [

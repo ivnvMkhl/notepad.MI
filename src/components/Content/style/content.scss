@@ -37,6 +37,13 @@
   background: var(--note-activ);
 }
 
+.create-bar {
+  display: none;
+}
+.create-bar_activate {
+  display: flex;
+}
+
 .selected-bar {
   display: none;
 }

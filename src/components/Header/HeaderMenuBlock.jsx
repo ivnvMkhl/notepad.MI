@@ -31,7 +31,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
 
   if (isOpen) {
     return (
-      <div className="header__dd-block">
+      <div className="header__dd-block" tabIndex="0">
         <div
           className="header__dd-button_select"
           onClick={() => {
@@ -43,6 +43,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
         <div className="header__modal-container">
           {items.map((item) => (
             <div
+              tabIndex="0"
               className="header__dd-items"
               key={item}
               onClick={() => {
@@ -115,6 +116,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
   } else
     return (
       <div
+        tabIndex="0"
         className="header__dd-button"
         onClick={() => {
           dispatch(onMenuBlock(name))

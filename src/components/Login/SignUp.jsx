@@ -37,7 +37,6 @@ const SignUp = () => {
           className="form__button"
           onClick={() => {
             dispatch(signUpUser(email, pass))
-            if (isRegisted) navigate('/')
           }}
         >
           Sign up
