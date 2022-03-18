@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSelectNote } from '../../redux/actions'
+import { getSelectNote } from '../../redux/note_reducer/noteActions'
 
 const NavNoteItem = ({ noteId, noteHeader, noteContentCut, noteDate, noteSelected, noteChange }) => {
   const dispatch = useDispatch()

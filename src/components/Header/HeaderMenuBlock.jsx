@@ -1,17 +1,8 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  changeNoteSort,
-  changeTheme,
-  closeNote,
-  createNote,
-  deleteAllNotes,
-  deleteNote,
-  invertNoteSort,
-  logoutUser,
-  onMenuBlock,
-  saveNote,
-} from '../../redux/actions'
+import { closeNote, createNote, deleteAllNotes, deleteNote, saveNote } from '../../redux/note_reducer/noteActions'
+import { changeNoteSort, changeTheme, invertNoteSort, onMenuBlock } from '../../redux/app_reducer/appActions'
+import { logoutUser } from '../../redux/user_reducer/userActions'
 
 const HeaderMenuBlock = ({ name, items, isOpen }) => {
   const dispatch = useDispatch()

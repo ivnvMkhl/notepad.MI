@@ -3,7 +3,7 @@ import Header from './Header/Header'
 import Navigation from './Navigation/Navigation'
 import Content from './Content/Content'
 import { useDispatch, useSelector } from 'react-redux'
-import { offMenuBlock } from '../redux/actions'
+import { offMenuBlock } from '../redux/app_reducer/appActions'
 
 const Main = () => {
   const dispatch = useDispatch()

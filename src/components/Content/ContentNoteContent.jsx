@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeUsedNote } from '../../redux/actions'
+import { changeUsedNote } from '../../redux/note_reducer/noteActions'
 
 const ContentNoteContent = () => {
   const dispatch = useDispatch()

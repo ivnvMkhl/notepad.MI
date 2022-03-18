@@ -15,7 +15,7 @@ import {
   SIGNUP_USER,
   START_FETCH_NOTES_COMPLETED,
   SWITCH_DISPL_NOTES,
-} from './types'
+} from '../types'
 
 export const appReducer = (state = initialApp, action) => {
   switch (action.type) {

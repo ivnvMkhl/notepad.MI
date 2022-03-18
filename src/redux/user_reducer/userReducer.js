@@ -1,4 +1,4 @@
-import { LOGOUT_USER, SIGNIN_USER, SIGNUP_USER } from './types'
+import { LOGOUT_USER, SIGNIN_USER, SIGNUP_USER } from '../types'
 
 const initialUser = {
   email: null,

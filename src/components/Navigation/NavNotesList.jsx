@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { closeNote, createNote, saveNote, showAlert } from '../../redux/actions'
+import { closeNote, createNote, saveNote } from '../../redux/note_reducer/noteActions'
+import { showAlert } from '../../redux/app_reducer/appActions'
 import Loader from '../Loader'
 import NavNoteItem from './NavNoteItem'
 import './style/navNotesList.scss'

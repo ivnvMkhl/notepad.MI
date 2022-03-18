@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import { signUpUser } from '../../redux/actions'
+import { Link } from 'react-router-dom'
+import { signUpUser } from '../../redux/user_reducer/userActions'
 import Alert from '../Alert'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
-  const navigate = useNavigate()
+
   const dispatch = useDispatch()
-  const isRegisted = useSelector((state) => state.app.appParams.isRegisted)
+
   const showAlert = useSelector((state) => state.app.appParams.showAlert)
 
   let alertElem

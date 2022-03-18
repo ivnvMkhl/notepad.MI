@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { changeNoteSort, invertNoteSort, offSortModal, onSortModal } from '../../redux/actions'
+import { changeNoteSort, invertNoteSort, offSortModal } from '../../redux/app_reducer/appActions'
 
 const NavSortModal = () => {
   const dispatch = useDispatch()

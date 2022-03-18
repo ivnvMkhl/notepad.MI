@@ -1,4 +1,4 @@
-# notepad.MI
+# notepad.MI - web notepad
 
 This is a WEB application project with support for PWA technology.
 

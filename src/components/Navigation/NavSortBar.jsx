@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { offSortModal, onSortModal, switchDisplNotes } from '../../redux/actions'
+import { offSortModal, onSortModal, switchDisplNotes } from '../../redux/app_reducer/appActions'
 import DisplBttnIcon from './DisplBttnIcon'
 import SortBttnIcon from './SortBttnIcon'
 
