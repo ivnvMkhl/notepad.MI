@@ -6,7 +6,6 @@ export const initialApp = {
     displayBttnFlag: false,
     headerMenuOpen: false,
     themeType: 'light',
-    isRegisted: false,
     authLoader: true,
     reAuthFlag: true,
     startFetchNotes: true,

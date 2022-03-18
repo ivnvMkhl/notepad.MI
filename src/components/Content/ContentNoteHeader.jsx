@@ -17,7 +17,7 @@ const ContentNoteHeader = () => {
         type="text"
         maxLength="150"
         className={
-          usedId !== -1 || (usedId === -1 && usedContent.trim() !== '')
+          usedId !== -1 || (usedId === -1 && usedContent.trim() !== '') || (usedId === -1 && usedHeader.trim() !== '')
             ? `content__header-input content__header-input_activate`
             : `content__header-input`
         }
@@ -27,7 +27,13 @@ const ContentNoteHeader = () => {
           dispatch(changeUsedNote({ ...usedNote, usedHeader: event.target.value }))
         }}
       />
-      <div className={usedId === -1 && usedContent.trim() !== '' ? `create-bar create-bar_activate` : `create-bar`}>
+      <div
+        className={
+          (usedId === -1 && usedContent.trim() !== '') || (usedId === -1 && usedHeader.trim() !== '')
+            ? `create-bar create-bar_activate`
+            : `create-bar`
+        }
+      >
         <button
           className="selected-bar__bar-button selected-bar__bar-button_end"
           onClick={() => {

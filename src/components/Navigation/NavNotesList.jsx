@@ -17,7 +17,10 @@ const NavNoteList = () => {
   const uid = useSelector((state) => state.user.uid)
 
   let noNotes
+
   startFetchNotes ? (noNotes = <Loader />) : (noNotes = <p className="navigation__not-notes">No notes</p>)
+
+  uid === 'test' ? (noNotes = <p className="navigation__not-notes">No notes</p>) : (noNotes = <Loader />)
 
   if (!notesList.length) {
     return (

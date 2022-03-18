@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { signUpUser } from '../../redux/user_reducer/userActions'
 import Alert from '../Alert'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const showAlert = useSelector((state) => state.app.appParams.showAlert)
@@ -37,6 +37,7 @@ const SignUp = () => {
           className="form__button"
           onClick={() => {
             dispatch(signUpUser(email, pass))
+            navigate('/')
           }}
         >
           Sign up
@@ -44,7 +45,7 @@ const SignUp = () => {
       </div>
       <div className="login__footer">
         <p>
-          Alredy have an account? <Link to="/">Sign in</Link>
+          Alredy have an account? <Link to="/">Log in</Link>
         </p>
       </div>
     </div>

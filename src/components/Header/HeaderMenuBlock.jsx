@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeNote, createNote, deleteAllNotes, deleteNote, saveNote } from '../../redux/note_reducer/noteActions'
 import { changeNoteSort, changeTheme, invertNoteSort, onMenuBlock } from '../../redux/app_reducer/appActions'
-import { logoutUser } from '../../redux/user_reducer/userActions'
+import { logOutUser } from '../../redux/user_reducer/userActions'
 
 const HeaderMenuBlock = ({ name, items, isOpen }) => {
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
   const email = useSelector((state) => state.user.email)
 
   let blockName
-  name === 'Account' ? (blockName = email.substring(0, email.indexOf('@'))) : (blockName = name)
+  name === 'Account' && uid !== 'test' ? (blockName = email.substring(0, email.indexOf('@'))) : (blockName = name)
 
   if (isOpen) {
     return (
@@ -92,7 +92,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
                 } else if (item === 'Light') {
                   dispatch(changeTheme('Light'))
                   theme.themeVar.map((themeVar, i) => document.body.style.setProperty(themeVar, theme.light[i]))
-                } else if (item === 'Log out') dispatch(logoutUser())
+                } else if (item === 'Log out') dispatch(logOutUser())
                 else dispatch({ type: 'APP/UNDEFINED_FUNC' })
 
                 dispatch(onMenuBlock(name))

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { enterTestMode, signInUser } from '../../redux/user_reducer/userActions'
+import { Link, useNavigate } from 'react-router-dom'
+import { forgotPassword } from '../../redux/user_reducer/userActions'
 import Alert from '../Alert'
 
-const Login = () => {
+const Forgot = () => {
   const [email, setEmail] = useState('')
-  const [pass, setPass] = useState('')
   const dispatch = useDispatch()
   const showAlert = useSelector((state) => state.app.appParams.showAlert)
+  const navigate = useNavigate()
 
   let alertElem
   showAlert ? (alertElem = <Alert />) : (alertElem = <div></div>)
@@ -26,46 +26,29 @@ const Login = () => {
           <h1>notepad.MI</h1>
         </div>
 
-        <h3>Login to your account</h3>
+        <h3>Forgot your password?</h3>
       </div>
 
       <div className="login__form">
         <input className="form__input" type="email" value={email} placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
-        <input className="form__input" type="password" value={pass} placeholder="Password" onChange={(e) => setPass(e.target.value)} />
 
         <button
           className="form__button"
           onClick={() => {
-            dispatch(signInUser(email, pass))
+            dispatch(forgotPassword(email))
+            navigate('/')
           }}
         >
-          Login
+          Reset password
         </button>
       </div>
       <div className="login__footer">
-        <div style={{ textAlign: 'center' }}>
-          <div>
-            <Link to="/forgot">I forgot my password</Link>
-          </div>
-          <div style={{ marginTop: '10px' }}>
-            or <Link to="/registration">Create Account</Link>
-          </div>
-          <div style={{ marginTop: '10px' }}>
-            or{' '}
-            <a
-              href="default"
-              onClick={(event) => {
-                event.preventDefault()
-                dispatch(enterTestMode())
-              }}
-            >
-              Enter test mode
-            </a>
-          </div>
-        </div>
+        <p>
+          Back to <Link to="/">Log in</Link>
+        </p>
       </div>
     </div>
   )
 }
 
-export default Login
+export default Forgot

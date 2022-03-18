@@ -11,6 +11,7 @@ import { fetchNotes } from './redux/note_reducer/noteActions'
 import { hideAuthLoader, reAuthCheck } from './redux/app_reducer/appActions'
 import { SIGNIN_USER } from './redux/types'
 import Loader from './components/Loader'
+import Forgot from './components/Login/Forgot'
 
 function App() {
   const auth = getAuth()
@@ -55,6 +56,7 @@ function App() {
         }
       />
       <Route path="/registration" element={<SignUp />} />
+      <Route path="/forgot" element={<Forgot />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

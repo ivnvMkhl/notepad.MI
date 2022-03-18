@@ -12,7 +12,6 @@ import {
   REAUTH_CHECK,
   SHOW_ALERT,
   SHOW_AUTH_LOADER,
-  SIGNUP_USER,
   START_FETCH_NOTES_COMPLETED,
   SWITCH_DISPL_NOTES,
 } from '../types'
@@ -20,6 +19,7 @@ import {
 export const appReducer = (state = initialApp, action) => {
   switch (action.type) {
     //APP REDUCERS
+
     case SHOW_ALERT:
       return {
         ...state,
@@ -40,11 +40,8 @@ export const appReducer = (state = initialApp, action) => {
       return { ...state, appParams: { ...state.appParams, authLoader: false } }
     case SHOW_AUTH_LOADER:
       return { ...state, appParams: { ...state.appParams, authLoader: true } }
-    // case SIGNUP_USER:
-    //   return { ...state, appParams: { ...state.appParams, isRegisted: action.payload } }
     case CHANGE_THEME:
       return { ...state, appParams: { ...state.appParams, themeType: action.payload } }
-
     case CHANGE_NOTES_SORT:
       return {
         ...state,
