@@ -10,12 +10,12 @@ The current version of the application can be viewed on the domain: [notepad-mi.
 
 Screenshots:
 
-[Screenshoot 1](./README/screenshot_1.png)
+![Screenshoot 1 Desktop ](./README/screenshot_1.png)
 
-[Screenshoot 2](./README/screenshot_2.png)
+![Screenshoot 2 Desktop ](./README/screenshot_2.png)
 
-[Screenshoot 3](./README/screenshot_3.png)
+![Screenshoot 3 Desktop ](./README/screenshot_3.png)
 
-[Screenshoot 4](./README/screenshot_4.jpg)
+![Screenshoot 4 Mobile ](./README/screenshot_4.jpg)
 
-[Screenshoot 4](./README/screenshot_5.jpg)
+![Screenshoot 4 Mobile ](./README/screenshot_5.jpg)
