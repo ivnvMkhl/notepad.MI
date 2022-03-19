@@ -9,14 +9,22 @@ import {
   ENTER_TEST_MODE,
   FORGOT_PASSWORD,
 } from '../types'
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth'
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+} from 'firebase/auth'
 import { child, get, getDatabase, ref } from 'firebase/database'
 
 //USER ACTIONS
 
 export function enterTestMode() {
-  return {
-    type: ENTER_TEST_MODE,
+  return async (dispatch) => {
+    dispatch({ type: ENTER_TEST_MODE })
+    dispatch({ type: START_FETCH_NOTES_COMPLETED })
   }
 }
 
@@ -29,11 +37,6 @@ export function forgotPassword(email) {
         dispatch({
           type: FORGOT_PASSWORD,
         })
-
-        // dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Sing up completed successfilly!' } })
-        // setTimeout(() => {
-        //   dispatch({ type: HIDE_ALERT })
-        // }, 3000)
       })
       .catch((error) => {
         const errorCode = error.code
@@ -110,8 +113,13 @@ export function signUpUser(email, password) {
         const user = userCredential.user
         dispatch({
           type: SIGNUP_USER,
+          payload: user,
         })
+        dispatch({ type: START_FETCH_NOTES_COMPLETED })
 
+        sendEmailVerification(auth.currentUser)
+          .then(() => console.log('email send'))
+          .catch((err) => console.log(err))
         // dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Sing up completed successfilly!' } })
         // setTimeout(() => {
         //   dispatch({ type: HIDE_ALERT })

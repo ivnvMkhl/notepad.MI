@@ -5,6 +5,7 @@ import {
   HIDE_ALERT,
   HIDE_AUTH_LOADER,
   INVERT_NOTES_SORT,
+  NO_NOTES,
   OFF_MENU_BLOCK,
   OFF_SORT_MODAL,
   ON_MENU_BLOCK,
@@ -19,7 +20,6 @@ import {
 export const appReducer = (state = initialApp, action) => {
   switch (action.type) {
     //APP REDUCERS
-
     case SHOW_ALERT:
       return {
         ...state,

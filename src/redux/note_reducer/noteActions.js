@@ -10,6 +10,7 @@ import {
   FETCH_NOTES,
   DELETE_ALL_NOTES,
   START_FETCH_NOTES_COMPLETED,
+  NO_NOTES,
 } from '../types'
 import { child, get, getDatabase, ref, remove, update } from 'firebase/database'
 
@@ -19,7 +20,9 @@ export function fetchNotes(user) {
   return async (dispatch) => {
     const dbRef = ref(getDatabase())
     get(child(dbRef, `${user.uid}/notes`)).then((snapshot) => {
-      if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
+      if (snapshot.val() !== null) {
+        dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
+      }
       dispatch({ type: START_FETCH_NOTES_COMPLETED })
     })
   }

@@ -45,6 +45,8 @@
   padding: 0 2rem;
   position: fixed;
   top: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 .login__logo {
   display: flex;

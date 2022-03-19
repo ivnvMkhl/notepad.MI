@@ -20,24 +20,24 @@ function App() {
   const reAuthFlag = useSelector((state) => state.app.reAuthFlag)
   const dispatch = useDispatch()
 
-  if (reAuthFlag || !isAuth) {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log('Yes')
-        dispatch({
-          type: SIGNIN_USER,
-          payload: user,
-        })
-        dispatch(fetchNotes(user))
-        dispatch(reAuthCheck())
-        dispatch(hideAuthLoader())
-      } else {
-        console.log('No')
-        dispatch(hideAuthLoader())
-        dispatch(reAuthCheck())
-      }
-    })
-  }
+  window.addEventListener('load', () => {
+    if (reAuthFlag || !isAuth) {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          dispatch({
+            type: SIGNIN_USER,
+            payload: user,
+          })
+          dispatch(fetchNotes(user))
+          dispatch(reAuthCheck())
+          dispatch(hideAuthLoader())
+        } else {
+          dispatch(hideAuthLoader())
+          dispatch(reAuthCheck())
+        }
+      })
+    }
+  })
 
   return (
     <Routes>

@@ -37,6 +37,7 @@ const SignUp = () => {
           className="form__button"
           onClick={() => {
             dispatch(signUpUser(email, pass))
+
             navigate('/')
           }}
         >

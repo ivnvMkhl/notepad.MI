@@ -20,7 +20,7 @@ const NavNoteList = () => {
 
   startFetchNotes ? (noNotes = <Loader />) : (noNotes = <p className="navigation__not-notes">No notes</p>)
 
-  uid === 'test' ? (noNotes = <p className="navigation__not-notes">No notes</p>) : (noNotes = <Loader />)
+  // uid === 'test' ? (noNotes = <p className="navigation__not-notes">No notes</p>) : (noNotes = <Loader />)
 
   if (!notesList.length) {
     return (
