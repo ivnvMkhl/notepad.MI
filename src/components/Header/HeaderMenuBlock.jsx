@@ -2,23 +2,23 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeNote, createNote, deleteAllNotes, deleteNote, saveNote } from '../../redux/note_reducer/noteActions'
 import { changeNoteSort, changeTheme, invertNoteSort, onMenuBlock } from '../../redux/app_reducer/appActions'
-import { logOutUser } from '../../redux/user_reducer/userActions'
+import { logoutUser } from '../../redux/user_reducer/userActions'
 
 const HeaderMenuBlock = ({ name, items, isOpen }) => {
   const dispatch = useDispatch()
   const headerMenuOpen = useSelector((state) => state.app.appParams.headerMenuOpen)
   const usedId = useSelector((state) => state.note.usedNote.usedId)
-  const notesList = useSelector((state) => state.note.notesList)
   const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
   const usedContent = useSelector((state) => state.note.usedNote.usedContent)
   const theme = useSelector((state) => state.app.theme)
-  const uid = useSelector((state) => state.user.uid)
+  const id = useSelector((state) => state.user.id)
   const sortType = useSelector((state) => state.app.appParams.sortType)
   const invertSortFlag = useSelector((state) => state.app.appParams.invertSortFlag)
   const email = useSelector((state) => state.user.email)
+  const accessToken = useSelector((state) => state.user.accessToken)
 
   let blockName
-  name === 'Account' && uid !== 'test' ? (blockName = email.substring(0, email.indexOf('@'))) : (blockName = name)
+  name === 'Account' && id !== 'test' ? (blockName = email.substring(0, email.indexOf('@'))) : (blockName = name)
 
   if (isOpen) {
     return (
@@ -39,17 +39,23 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
               key={item}
               onClick={() => {
                 //Select action to click header menu
-                if (item === 'Save') dispatch(saveNote(uid, usedId, usedHeader, usedContent, notesList))
-                else if (item === 'Create') {
+                if (item === 'Save') {
                   if (usedId === -1) {
-                    usedHeader ? dispatch(createNote(uid, usedHeader, usedContent)) : dispatch({ type: 'SHOW_ALERT' })
+                    usedHeader ? dispatch(createNote(accessToken, usedHeader, usedContent)) : dispatch({ type: 'SHOW_ALERT' })
                   } else {
-                    dispatch(saveNote(uid, usedId, usedHeader, usedContent, notesList))
+                    dispatch(saveNote(accessToken, usedId, usedHeader, usedContent))
+                    dispatch(closeNote())
+                  }
+                } else if (item === 'Create') {
+                  if (usedId === -1) {
+                    usedHeader ? dispatch(createNote(accessToken, usedHeader, usedContent)) : dispatch({ type: 'SHOW_ALERT' })
+                  } else {
+                    dispatch(saveNote(accessToken, usedId, usedHeader, usedContent))
                     dispatch(closeNote())
                   }
                 } else if (item === 'Close') dispatch(closeNote())
-                else if (item === 'Delete') dispatch(deleteNote(uid, usedId))
-                else if (item === 'Delete all notes') dispatch(deleteAllNotes(uid))
+                else if (item === 'Delete') dispatch(deleteNote(accessToken, usedId))
+                else if (item === 'Delete all notes') dispatch(deleteAllNotes(accessToken))
                 else if (item === 'Update') {
                   if (sortType === 'Update') {
                     dispatch(invertNoteSort())
@@ -92,7 +98,7 @@ const HeaderMenuBlock = ({ name, items, isOpen }) => {
                 } else if (item === 'Light') {
                   dispatch(changeTheme('Light'))
                   theme.themeVar.map((themeVar, i) => document.body.style.setProperty(themeVar, theme.light[i]))
-                } else if (item === 'Log out') dispatch(logOutUser())
+                } else if (item === 'Log out') dispatch(logoutUser(email))
                 else dispatch({ type: 'APP/UNDEFINED_FUNC' })
 
                 dispatch(onMenuBlock(name))

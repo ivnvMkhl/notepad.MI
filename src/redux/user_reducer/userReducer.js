@@ -2,7 +2,7 @@ import { ENTER_TEST_MODE, FORGOT_PASSWORD, LOGOUT_USER, SIGNIN_USER, SIGNUP_USER
 
 const initialUser = {
   email: null,
-  uid: null,
+  id: null,
   isAuth: false,
 }
 
@@ -15,19 +15,19 @@ export const userReducer = (state = initialUser, action) => {
     case LOGOUT_USER:
       return {
         email: null,
-        uid: null,
+        id: null,
         isAuth: false,
       }
     case ENTER_TEST_MODE:
       return {
         email: 'test',
-        uid: 'test',
+        id: 'test',
         isAuth: true,
       }
     case FORGOT_PASSWORD:
       return {
         email: null,
-        uid: null,
+        id: null,
         isAuth: false,
       }
     default:

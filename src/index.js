@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom'
 import thunk from 'redux-thunk'
 import App from './App'
 import './style/index.scss'
-import './firebase'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 // const store = createStore(rootReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())

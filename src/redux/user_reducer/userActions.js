@@ -1,3 +1,4 @@
+import { forgotRequest, loginRequest, logoutRequest, refreshTokenRequest, registrationRequest } from '../../serverRequest'
 import {
   SHOW_ALERT,
   HIDE_ALERT,
@@ -9,15 +10,6 @@ import {
   ENTER_TEST_MODE,
   FORGOT_PASSWORD,
 } from '../types'
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  sendPasswordResetEmail,
-  sendEmailVerification,
-} from 'firebase/auth'
-import { child, get, getDatabase, ref } from 'firebase/database'
 
 //USER ACTIONS
 
@@ -30,20 +22,16 @@ export function enterTestMode() {
 
 export function forgotPassword(email) {
   return async (dispatch) => {
-    const auth = getAuth()
-
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
+    forgotRequest(email)
+      .then((data) => {
+        console.log(data)
         dispatch({
           type: FORGOT_PASSWORD,
         })
       })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode)
-        console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+      .catch((err) => {
+        console.log(err)
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: err.message } })
         setTimeout(() => {
           dispatch({ type: HIDE_ALERT })
         }, 3000)
@@ -51,52 +39,33 @@ export function forgotPassword(email) {
   }
 }
 
-export function logOutUser() {
+export function reSingIn(data) {
   return async (dispatch) => {
-    const auth = getAuth()
-    signOut(auth)
-      .then(() => {
-        dispatch({ type: LOGOUT_USER })
-      })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode)
-        console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
-        setTimeout(() => {
-          dispatch({ type: HIDE_ALERT })
-        }, 3000)
-      })
+    console.log(data)
+    dispatch({
+      type: SIGNIN_USER,
+      payload: data,
+    })
+    //fetch notes
+    dispatch({ type: START_FETCH_NOTES_COMPLETED })
   }
 }
 
 export function signInUser(email, password) {
   return async (dispatch) => {
-    const auth = getAuth()
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
+    loginRequest(email, password)
+      .then((data) => {
+        console.log(data)
         dispatch({
           type: SIGNIN_USER,
-          payload: user,
+          payload: data,
         })
-
-        const dbRef = ref(getDatabase())
-        get(child(dbRef, `${user.uid}/notes`)).then((snapshot) => {
-          console.log(snapshot.val())
-          if (snapshot.val() !== null) dispatch({ type: FETCH_NOTES, payload: snapshot.val() })
-        })
-
+        //fetch notes
         dispatch({ type: START_FETCH_NOTES_COMPLETED })
       })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode)
-        console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+      .catch((err) => {
+        console.log(err)
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: err.message } })
         setTimeout(() => {
           dispatch({ type: HIDE_ALERT })
         }, 3000)
@@ -106,31 +75,17 @@ export function signInUser(email, password) {
 
 export function signUpUser(email, password) {
   return async (dispatch) => {
-    const auth = getAuth()
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
+    registrationRequest(email, password)
+      .then((data) => {
+        console.log(data)
         dispatch({
           type: SIGNUP_USER,
-          payload: user,
+          payload: data,
         })
-        dispatch({ type: START_FETCH_NOTES_COMPLETED })
-
-        sendEmailVerification(auth.currentUser)
-          .then(() => console.log('email send'))
-          .catch((err) => console.log(err))
-        // dispatch({ type: SHOW_ALERT, payload: { alertType: 'compl', alertText: 'Sing up completed successfilly!' } })
-        // setTimeout(() => {
-        //   dispatch({ type: HIDE_ALERT })
-        // }, 3000)
       })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode)
-        console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+      .catch((err) => {
+        console.log(err)
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: err.message } })
         setTimeout(() => {
           dispatch({ type: HIDE_ALERT })
         }, 3000)
@@ -138,19 +93,15 @@ export function signUpUser(email, password) {
   }
 }
 
-export function logoutUser() {
+export function logoutUser(email) {
   return async (dispatch) => {
-    const auth = getAuth()
-    signOut(auth)
-      .then(() => {
+    logoutRequest(email)
+      .then((data) => {
         dispatch({ type: LOGOUT_USER })
       })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode)
-        console.log(errorMessage)
-        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: errorMessage } })
+      .catch((err) => {
+        console.log(err)
+        dispatch({ type: SHOW_ALERT, payload: { alertType: 'err', alertText: err.message } })
         setTimeout(() => {
           dispatch({ type: HIDE_ALERT })
         }, 3000)

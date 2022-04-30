@@ -8,8 +8,7 @@ const ContentNoteHeader = () => {
   const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
   const usedContent = useSelector((state) => state.note.usedNote.usedContent)
   const usedId = useSelector((state) => state.note.usedNote.usedId)
-  const uid = useSelector((state) => state.user.uid)
-  const notesList = useSelector((state) => state.note.notesList)
+  const accessToken = useSelector((state) => state.user.accessToken)
 
   return (
     <div className="content__note-header">
@@ -37,7 +36,7 @@ const ContentNoteHeader = () => {
         <button
           className="selected-bar__bar-button selected-bar__bar-button_end"
           onClick={() => {
-            dispatch(createNote(uid, usedHeader, usedContent))
+            dispatch(createNote(accessToken, usedHeader, usedContent))
           }}
         >
           <div style={{ width: '17px', height: '17px' }}>
@@ -51,7 +50,7 @@ const ContentNoteHeader = () => {
         <button
           className="selected-bar__bar-button"
           onClick={() => {
-            dispatch(deleteNote(uid, usedId))
+            dispatch(deleteNote(accessToken, usedId))
           }}
         >
           <div style={{ width: '19px', height: '19px' }}>
@@ -63,7 +62,7 @@ const ContentNoteHeader = () => {
         <button
           className="selected-bar__bar-button selected-bar__bar-button_end"
           onClick={() => {
-            dispatch(saveNote(uid, usedId, usedHeader, usedContent, notesList))
+            dispatch(saveNote(accessToken, usedId, usedHeader, usedContent))
             dispatch(closeNote())
           }}
         >

@@ -6,36 +6,30 @@ import NotFound from './components/NotFound'
 import SignUp from './components/Login/SignUp'
 import { useDispatch, useSelector } from 'react-redux'
 import Login from './components/Login/Login'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { fetchNotes } from './redux/note_reducer/noteActions'
-import { hideAuthLoader, reAuthCheck } from './redux/app_reducer/appActions'
-import { SIGNIN_USER } from './redux/types'
+import { hideAuthLoader } from './redux/app_reducer/appActions'
+import { reSingIn } from './redux/user_reducer/userActions'
 import Loader from './components/Loader'
 import Forgot from './components/Login/Forgot'
+import { refreshTokenRequest } from './serverRequest'
+import { fetchNotes } from './redux/note_reducer/noteActions'
 
 function App() {
-  const auth = getAuth()
   const isAuth = useSelector((state) => state.user.isAuth)
   const authLoader = useSelector((state) => state.app.appParams.authLoader)
-  const reAuthFlag = useSelector((state) => state.app.reAuthFlag)
+  const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
-  window.addEventListener('load', () => {
-    if (reAuthFlag || !isAuth) {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          dispatch({
-            type: SIGNIN_USER,
-            payload: user,
-          })
-          dispatch(fetchNotes(user))
-          dispatch(reAuthCheck())
+  window.addEventListener('load', async () => {
+    if (authLoader) {
+      await refreshTokenRequest()
+        .then(async (res) => {
           dispatch(hideAuthLoader())
-        } else {
+          dispatch(reSingIn(res))
+          dispatch(fetchNotes(res))
+        })
+        .catch((err) => {
           dispatch(hideAuthLoader())
-          dispatch(reAuthCheck())
-        }
-      })
+        })
     }
   })
 

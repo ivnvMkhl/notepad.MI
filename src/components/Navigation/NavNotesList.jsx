@@ -14,7 +14,7 @@ const NavNoteList = () => {
   const usedId = useSelector((state) => state.note.usedNote.usedId)
   const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
   const usedContent = useSelector((state) => state.note.usedNote.usedContent)
-  const uid = useSelector((state) => state.user.uid)
+  const uid = useSelector((state) => state.user.id)
 
   let noNotes
 

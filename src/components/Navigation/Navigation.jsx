@@ -12,8 +12,7 @@ const Navigation = () => {
   const usedId = useSelector((state) => state.note.usedNote.usedId)
   const usedHeader = useSelector((state) => state.note.usedNote.usedHeader)
   const usedContent = useSelector((state) => state.note.usedNote.usedContent)
-  const uid = useSelector((state) => state.user.uid)
-  const notesList = useSelector((state) => state.note.notesList)
+  const accessToken = useSelector((state) => state.user.accessToken)
 
   return (
     <nav className="navigation">
@@ -25,10 +24,10 @@ const Navigation = () => {
               document.querySelector('.content__note-area').focus()
               dispatch(showAlert('warn', 'Enter note header or content...'))
             } else {
-              dispatch(createNote(uid, usedHeader, usedContent))
+              dispatch(createNote(accessToken, usedHeader, usedContent))
             }
           } else {
-            dispatch(saveNote(uid, usedId, usedHeader, usedContent, notesList))
+            dispatch(saveNote(accessToken, usedId, usedHeader, usedContent))
             dispatch(closeNote())
             document.querySelector('.content__note-area').focus()
           }

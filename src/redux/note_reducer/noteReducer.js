@@ -7,7 +7,7 @@ export const noteReducer = (state = initialNote, action) => {
     //NOTE REDUCERS
 
     case FETCH_NOTES:
-      return { ...state, notesList: Object.values(action.payload) }
+      return { ...state, notesList: action.payload }
     case CHANGE_USED_NOTE:
       return { ...state, usedNote: action.payload }
     case GET_SELECT_NOTE:
@@ -57,8 +57,8 @@ export const noteReducer = (state = initialNote, action) => {
         ...state,
         notesList: state.notesList.map((note) => {
           if (action.payload.noteId === note.noteId) {
-            note.noteHeader = action.payload.usedHeader
-            note.noteContent = action.payload.usedContent
+            note.noteHeader = action.payload.noteHeader
+            note.noteContent = action.payload.noteContent
             note.noteChange = action.payload.noteChange
             note.syncServer = action.payload.syncServer
           }
@@ -95,8 +95,8 @@ export const noteReducer = (state = initialNote, action) => {
         notesList: state.notesList.concat([
           {
             noteId: action.payload.noteId,
-            noteHeader: action.payload.usedHeader,
-            noteContent: action.payload.usedContent,
+            noteHeader: action.payload.noteHeader,
+            noteContent: action.payload.noteContent,
             noteDate: action.payload.noteDate,
             noteChange: action.payload.noteChange,
             noteSelected: true,
@@ -105,8 +105,8 @@ export const noteReducer = (state = initialNote, action) => {
         ]),
         usedNote: {
           usedId: action.payload.noteId,
-          usedHeader: action.payload.usedHeader,
-          usedContent: action.payload.usedContent,
+          usedHeader: action.payload.noteHeader,
+          usedContent: action.payload.noteContent,
           usedDate: new Date(action.payload.noteDate),
           usedChange: new Date(action.payload.noteChange),
         },
