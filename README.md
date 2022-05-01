@@ -1,10 +1,8 @@
-
 # notepad.MI - web notepad
 
 This is a WEB application project with support for PWA technology.
 
-
-The project was developed using technologies: JavaScript, React, Redux, Firebase, SCSS.
+The project was developed using technologies: JavaScript, React, Redux, SCSS.
 
 At the moment, the project is under development, so the current commits may be with errors))
 
@@ -21,4 +19,3 @@ Screenshots:
 ![Screenshoot 4 Mobile ](./README/screenshot_4.jpg)
 
 ![Screenshoot 4 Mobile ](./README/screenshot_5.jpg)
-
