@@ -6,7 +6,7 @@ To start, correct the URL of the backend server in the file /src/serverRequest.j
 
 You can contact me in telegram - @mkhl_ivnv
 
-View: https://notepad-mi.online/
+Test deploy on Firebase: https://notepad-mi.online/
 
 ![screenshot_1](https://github.com/ivnvMkhl/notepad.MI/blob/main/README/screenshot_1.png)
 ![screenshot_2](https://github.com/ivnvMkhl/notepad.MI/blob/main/README/screenshot_2.png)
